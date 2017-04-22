@@ -17,20 +17,20 @@ allprojects{
     apply plugin: 'nebula.dependency-recommender'
     
     dependencyRecommendations {
-        dependencyLock file: file("$rootDir/dependencies.lock")
+        dependencyLock file: file("${rootDir}/dependencies.lock")
     }
     
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
-    version = '0.1.0'
+    version = "${lockdownVersion}"
     group = 'com.rsomeara'
     
-    sourceCompatibility = '1.8'
+    sourceCompatibility = "${javaVersion}"
 
     //Always download sources, to allow debugging, and use Eclipse containers for greater portability
     eclipse {
         classpath {
             downloadSources=true
-            containers = [ "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-${sourceCompatibility }" ]
+            containers = [ 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8' ]
         }
     }
     
@@ -110,5 +110,5 @@ codeCoverageReport.dependsOn {
 }
     
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.6'
+    gradleVersion = "${gradleVersion}"
 }
