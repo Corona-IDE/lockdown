@@ -1,0 +1,3 @@
+include 'lockdown-core'
+include 'lockdown-cli'
+include 'lockdown-gradle-plugin'

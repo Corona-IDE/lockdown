@@ -1,0 +1,4 @@
+//Dependency versions managed in $rootDir/dependencies.lock
+dependencies {
+    compile group: 'org.bouncycastle', name: 'bcpg-jdk15on', version: '1.56'
+}

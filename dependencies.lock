@@ -1,2 +1,3 @@
 {
+	"org.bouncycastle:bcpg-jdk15on": { "locked": "1.56" }
 }

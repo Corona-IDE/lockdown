@@ -1,0 +1,4 @@
+//Dependency versions managed in $rootDir/dependencies.lock
+dependencies {
+    compile project(':lockdown-core')
+}
