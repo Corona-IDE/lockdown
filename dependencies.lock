@@ -1,3 +1,7 @@
 {
-	"org.bouncycastle:bcpg-jdk15on": { "locked": "1.56" }
+	"com.google.code.findbugs:jsr305": { "locked": "3.0.1" },
+
+	"org.bouncycastle:bcpg-jdk15on": { "locked": "1.56" },
+	
+	"org.testng:testng": { "locked": "6.9.10" },
 }
