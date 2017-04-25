@@ -1,6 +1,6 @@
 # Lockdown
 
-[![Travis CI](https://img.shields.io/travis/Corona-IDE/lockdown.svg)](https://travis-ci.org/Corona-IDE/lockdown) [![Code Coverage](https://img.shields.io/codecov/c/github/Corona-IDE/lockdown.svg)](https://codecov.io/github/Corona-IDE/lockdown)
+[![Travis CI](https://img.shields.io/travis/Corona-IDE/lockdown.svg)](https://travis-ci.org/Corona-IDE/lockdown) [![Code Coverage](https://img.shields.io/codecov/c/github/Corona-IDE/lockdown.svg)](https://codecov.io/github/Corona-IDE/lockdown) [![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master)
 
 When you simply can't avoid storing basic credentials
 
