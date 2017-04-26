@@ -33,6 +33,10 @@ sonarqube {
     }
 }
 
+if (project.hasProperty('sonarLogin')) {
+    System.setProperty('sonar.login', "${sonarLogin}")
+}
+
 allprojects{
     apply plugin: 'java'
     apply plugin: 'eclipse'
