@@ -3,5 +3,8 @@
 
 	"org.bouncycastle:bcpg-jdk15on": { "locked": "1.56" },
 	
+	"org.slf4j:slf4j-api": { "locked": "1.7.21" },
+	"org.slf4j:slf4j-simple": { "locked": "1.7.12" },
+	
 	"org.testng:testng": { "locked": "6.9.10" },
 }

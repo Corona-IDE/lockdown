@@ -2,6 +2,9 @@
 dependencies {
     compile group: 'com.google.code.findbugs', name: 'jsr305'
     compile group: 'org.bouncycastle', name: 'bcpg-jdk15on'
+    compile group: 'org.slf4j', name: 'slf4j-api'
     
     testCompile group: 'org.testng', name: 'testng'
+    
+    testRuntime group: 'org.slf4j', name: 'slf4j-simple'
 }

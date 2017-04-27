@@ -12,6 +12,7 @@ package com.coronaide.test.lockdown;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.testng.Assert;
@@ -26,16 +27,16 @@ public class KeyGeneratorTest {
 
     @Test(expectedExceptions = NullPointerException.class)
     public void createKeyPairNullPublicKeyDestination() throws Exception {
-        File publicKeyDestination = Files.createTempFile("key", "public").toFile();
-        publicKeyDestination.deleteOnExit();
+        Path publicKeyDestination = Files.createTempFile("key", "public");
+        publicKeyDestination.toFile().deleteOnExit();
 
         keyGenerator.createKeyPair(publicKeyDestination, null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void createKeyPairNullPrivateKeyDestination() throws Exception {
-        File privateKeyDestination = Files.createTempFile("key", "private").toFile();
-        privateKeyDestination.deleteOnExit();
+        Path privateKeyDestination = Files.createTempFile("key", "private");
+        privateKeyDestination.toFile().deleteOnExit();
 
         keyGenerator.createKeyPair(null, privateKeyDestination);
     }
@@ -43,20 +44,20 @@ public class KeyGeneratorTest {
     @Test
     public void createKeyPair() throws Exception {
         File directory = Files.createTempDirectory("key-gen-test").toFile();
-        File publicKeyDestination = Paths.get(directory.toString(), "key.public").toFile();
-        File privateKeyDestination = Paths.get(directory.toString(), "key.private").toFile();
+        Path publicKeyDestination = Paths.get(directory.toString(), "key.public");
+        Path privateKeyDestination = Paths.get(directory.toString(), "key.private");
         directory.deleteOnExit();
-        publicKeyDestination.deleteOnExit();
-        privateKeyDestination.deleteOnExit();
+        publicKeyDestination.toFile().deleteOnExit();
+        privateKeyDestination.toFile().deleteOnExit();
 
         KeyFiles result = keyGenerator.createKeyPair(publicKeyDestination, privateKeyDestination);
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.getPublicKeyFile(), publicKeyDestination.toPath());
-        Assert.assertEquals(result.getPrivateKeyFile(), privateKeyDestination.toPath());
+        Assert.assertEquals(result.getPublicKeyFile(), publicKeyDestination);
+        Assert.assertEquals(result.getPrivateKeyFile(), privateKeyDestination);
 
-        Assert.assertTrue(publicKeyDestination.exists());
-        Assert.assertTrue(privateKeyDestination.exists());
+        Assert.assertTrue(publicKeyDestination.toFile().exists());
+        Assert.assertTrue(privateKeyDestination.toFile().exists());
     }
 
 }

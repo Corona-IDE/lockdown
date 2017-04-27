@@ -11,9 +11,9 @@
 package com.coronaide.lockdown;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -57,7 +57,7 @@ public class KeyGenerator {
      *             If there is an error writing to the locations specified
      * @since 0.1.0
      */
-    public KeyFiles createKeyPair(File publicKeyDestination, File privateKeyDestination) throws IOException {
+    public KeyFiles createKeyPair(Path publicKeyDestination, Path privateKeyDestination) throws IOException {
         Objects.requireNonNull(publicKeyDestination);
         Objects.requireNonNull(privateKeyDestination);
 
@@ -74,15 +74,15 @@ public class KeyGenerator {
 
         KeyPair pair = generator.generateKeyPair();
 
-        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(publicKeyDestination))) {
+        try (BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(publicKeyDestination))) {
             Base64.encode(pair.getPublic().getEncoded(), out);
         }
 
-        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(privateKeyDestination))) {
+        try (BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(privateKeyDestination))) {
             Base64.encode(pair.getPrivate().getEncoded(), out);
         }
 
-        return new KeyFiles(publicKeyDestination.toPath(), privateKeyDestination.toPath());
+        return new KeyFiles(publicKeyDestination, privateKeyDestination);
     }
 
 }
