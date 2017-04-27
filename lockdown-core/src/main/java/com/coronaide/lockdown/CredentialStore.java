@@ -32,6 +32,7 @@ import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -340,8 +341,8 @@ public class CredentialStore {
     private byte[] readAndDecodeKey(Path keyFile) throws IOException {
         Objects.requireNonNull(keyFile);
 
-        String content = new String(Files.readAllBytes(keyFile));
-
-        return Base64.decode(content);
+        try (PemReader pemReader = new PemReader(Files.newBufferedReader(keyFile))) {
+            return pemReader.readPemObject().getContent();
+        }
     }
 }

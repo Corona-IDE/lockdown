@@ -10,8 +10,8 @@
  */
 package com.coronaide.lockdown;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.KeyPair;
@@ -23,7 +23,8 @@ import java.security.Security;
 import java.util.Objects;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemWriter;
 
 import com.coronaide.lockdown.model.KeyFiles;
 
@@ -74,12 +75,16 @@ public class KeyGenerator {
 
         KeyPair pair = generator.generateKeyPair();
 
-        try (BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(publicKeyDestination))) {
-            Base64.encode(pair.getPublic().getEncoded(), out);
+        PemObject publicPem = new PemObject("RSA PUBLIC KEY", pair.getPublic().getEncoded());
+        PemObject privatePem = new PemObject("RSA PRIVATE KEY", pair.getPrivate().getEncoded());
+
+        try (PemWriter pemWriter = new PemWriter(new OutputStreamWriter(Files.newOutputStream(publicKeyDestination)))) {
+            pemWriter.writeObject(publicPem);
         }
 
-        try (BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(privateKeyDestination))) {
-            Base64.encode(pair.getPrivate().getEncoded(), out);
+        try (PemWriter pemWriter = new PemWriter(
+                new OutputStreamWriter(Files.newOutputStream(privateKeyDestination)))) {
+            pemWriter.writeObject(privatePem);
         }
 
         return new KeyFiles(publicKeyDestination, privateKeyDestination);
