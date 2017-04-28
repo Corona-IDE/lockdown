@@ -55,10 +55,8 @@ public class CredentialStore {
      *
      * @param credentialFile
      *            Path to a file storing credential information
-     * @throws FileNotFoundException
-     *             If the provided path does not point to an existing file
      */
-    private CredentialStore(Path credentialFile) throws FileNotFoundException {
+    private CredentialStore(Path credentialFile) {
         Objects.requireNonNull(credentialFile);
 
         Security.addProvider(new BouncyCastleProvider());
