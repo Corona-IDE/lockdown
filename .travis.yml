@@ -1,14 +1,20 @@
 language: java
+
+env:
+  global:
+    - secure: "jxIsOHh5LifqjnOHkD4l9gPl+ZLDqrFYvkbd9TBY/E4Agn30YNgv1UGcpZ3SW2X0yKT8pJcY+CXZAXEPfVzVPPPlYy5gKA8J5eCLKPZbOpppeSQYMg4IFDz7L4JKTWp9T5heIFQv8SKQS7VzgJAPR1SiAPcbjYCcFsTHdoBQ633eLrhx3sTLxD7ou8xObd8ZoxpZiBocI/drWbbWzWg02ga4oZAsA1XKkLtkA8hCQwkK1uv25pYVZja+8Db5g6rXOrV7BJvULQbNr91dqa90orCIWNn2gM68aM024mVDs6MQh8hiVfL+2vzEgkB3LINv2g51xiiEuRSOPkROEdPEJdGqGkQE9guAGfJrBwLMhP9dWnm2bt7yztJwRnWvgEokAJqI365FfxmmSq7JJFl8dJVuB70BGxFXwCCX75G0GljVVAURuP0Jlvv9NW6mkpPhafWFt7Zw9fArfK+j33EouenTs/EwrmphbnxXDe7E1KW4PiR+Ly5p2fqc6+RGY8HR+qzhlHQsikhmSC/v99AG6m9MS7Lp5rzyzPYWtupk0m40InhhBeSpUDNCjuPhPmAn8vyy9Vw0jkRiENC1CLCVjy8rlE3/1bBU9ydvrMeUDJTMsir89WyzgQTOEjUxslj7U/DZ5wWhQxmyma9YbA4dgg9BDyr6L+0Uhph6Wu2rMzo="
+
 jdk:
   - oraclejdk8
-  
+
 before_install:
   - pip install --user codecov
   
 script:
   - ./gradlew check
   - ./gradlew codeCoverageReport
-  
+  - ./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN
+
 after_success:
   - codecov
   - ./gradlew buildBom

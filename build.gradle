@@ -12,7 +12,27 @@ buildscript {
     }
 }
 
+plugins {
+    id 'org.sonarqube' version '2.3'
+}
+
 apply plugin: 'com.blackducksoftware.hub'
+
+if (project.hasProperty('sonarLogin')) {
+    System.setProperty('sonar.login', "${sonarLogin}")
+}
+
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'Lockdown'
+        property 'sonar.projectKey', 'com.coronaide:lockdown'
+        property 'sonar.organization', 'corona-ide'
+        property 'sonar.junit.reportsPath', file("${buildDir}/test-results/test")
+        property 'sonar.core.codeCoveragePlugin', 'jacoco'
+        property 'sonar.jacoco.reportPaths', "${buildDir}/jacoco/test.exec"
+        property 'sonar.host.url', 'https://sonarqube.com'
+    }
+}
 
 buildBom{
 	deployHubBdio false
@@ -93,6 +113,21 @@ subprojects{
         
         useTestNG() {
             useDefaultListeners = true
+        }
+    }
+    
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+    
+    sonarqube {
+        properties {
+            property 'sonar.projectKey', "com.coronaide:lockdown:${project.name}"
+            property 'sonar.junit.reportsPath', file("${buildDir}/test-results/test")
+            property 'sonar.core.codeCoveragePlugin', 'jacoco'
+            property 'sonar.jacoco.reportPaths', "${buildDir}/jacoco/test.exec"
+            properties['sonar.sources'] = sourceSets.main.java.srcDirs.findAll { it.exists() && !it.path.contains('resources') } ?: []
         }
     }
 }
