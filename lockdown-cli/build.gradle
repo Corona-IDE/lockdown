@@ -1,4 +1,10 @@
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
     compile project(':lockdown-core')
+    compile group: 'args4j', name: 'args4j'
+    compile group: 'org.slf4j', name: 'slf4j-api'
+    
+    runtime group: 'org.slf4j', name: 'slf4j-simple'
+    
+    testCompile group: 'org.testng', name: 'testng'
 }
