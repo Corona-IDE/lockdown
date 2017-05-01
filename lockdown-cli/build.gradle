@@ -1,3 +1,10 @@
+test{
+    //Addextra logging for cli to prevent Travis timeout
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+     }
+}
+
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
     compile project(':lockdown-core')
