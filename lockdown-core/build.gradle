@@ -4,6 +4,7 @@ dependencies {
     compile group: 'org.bouncycastle', name: 'bcpg-jdk15on'
     compile group: 'org.slf4j', name: 'slf4j-api'
     
+    testCompile group: 'com.google.jimfs', name: 'jimfs'
     testCompile group: 'org.testng', name: 'testng'
     
     testRuntime group: 'org.slf4j', name: 'slf4j-simple'
