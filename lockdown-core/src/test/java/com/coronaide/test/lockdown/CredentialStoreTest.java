@@ -16,7 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.bouncycastle.crypto.InvalidCipherTextException;
+import org.bouncycastle.crypto.CryptoException;
+import org.bouncycastle.crypto.RuntimeCryptoException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -255,7 +256,7 @@ public class CredentialStoreTest {
         store.accessCredentials("KEY2", privateKey1, (a, b) -> Assert.fail("Load was attempted"));
     }
 
-    @Test(expectedExceptions = InvalidCipherTextException.class)
+    @Test(expectedExceptions = { CryptoException.class, RuntimeCryptoException.class })
     public void accessCredentialsInvalidKey() throws Exception {
         Path targetFile = Files.createTempFile("cred", "store");
         targetFile.toFile().deleteOnExit();
