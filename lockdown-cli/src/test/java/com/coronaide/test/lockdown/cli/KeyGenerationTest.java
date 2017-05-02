@@ -59,8 +59,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
+        Files.createFile(publicKey);
+        Files.createFile(privateKey);
 
         logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
 
@@ -69,8 +69,8 @@ public class KeyGenerationTest {
         LockdownCommandLine.main(args);
 
         // Should not be generated over blank files, which will fail the encrypt step
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -98,8 +98,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -128,8 +128,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -161,8 +161,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(baseName + ".pub");
         Path privateKey = outputDirectory.resolve(baseName);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -194,8 +194,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(baseName + ".pub");
         Path privateKey = outputDirectory.resolve(baseName);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -217,8 +217,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
+        Files.createFile(publicKey);
+        Files.createFile(privateKey);
 
         logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
 
@@ -227,8 +227,8 @@ public class KeyGenerationTest {
         LockdownCommandLine.main(args);
 
         // Should be generated in the provided location with default names. Load and attempt use
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -250,8 +250,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
+        Files.createFile(publicKey);
+        Files.createFile(privateKey);
 
         logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
 
@@ -260,8 +260,8 @@ public class KeyGenerationTest {
         LockdownCommandLine.main(args);
 
         // Should be generated in the provided location with default names. Load and attempt use
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
