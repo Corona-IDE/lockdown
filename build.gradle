@@ -50,7 +50,7 @@ allprojects{
     
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
     version = "${lockdownVersion}"
-    group = 'com.rsomeara'
+    group = 'com.coronaide.lockdown'
     
     sourceCompatibility = "${javaVersion}"
 
