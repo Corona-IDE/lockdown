@@ -10,45 +10,43 @@
  */
 package com.coronaide.test.lockdown;
 
-import java.io.File;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.coronaide.lockdown.KeyGenerator;
 import com.coronaide.lockdown.model.KeyFiles;
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
 
 public class KeyGeneratorTest {
 
     private final KeyGenerator keyGenerator = new KeyGenerator();
 
+    // Use a virtual file system for tests, as CI providers can be much lower power
+    private FileSystem virtualFileSystem = Jimfs.newFileSystem(Configuration.unix());
+
     @Test(expectedExceptions = NullPointerException.class)
     public void createKeyPairNullPublicKeyDestination() throws Exception {
-        Path publicKeyDestination = Files.createTempFile("key", "public");
-        publicKeyDestination.toFile().deleteOnExit();
+        Path publicKeyDestination = virtualFileSystem.getPath("key", "public");
 
         keyGenerator.createKeyPair(publicKeyDestination, null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void createKeyPairNullPrivateKeyDestination() throws Exception {
-        Path privateKeyDestination = Files.createTempFile("key", "private");
-        privateKeyDestination.toFile().deleteOnExit();
+        Path privateKeyDestination = virtualFileSystem.getPath("key", "private");
 
         keyGenerator.createKeyPair(null, privateKeyDestination);
     }
 
     @Test
     public void createKeyPair() throws Exception {
-        File directory = Files.createTempDirectory("key-gen-test").toFile();
-        Path publicKeyDestination = Paths.get(directory.toString(), "key.public");
-        Path privateKeyDestination = Paths.get(directory.toString(), "key.private");
-        directory.deleteOnExit();
-        publicKeyDestination.toFile().deleteOnExit();
-        privateKeyDestination.toFile().deleteOnExit();
+        Path publicKeyDestination = virtualFileSystem.getPath("create.public");
+        Path privateKeyDestination = virtualFileSystem.getPath("create.private");
 
         KeyFiles result = keyGenerator.createKeyPair(publicKeyDestination, privateKeyDestination);
 
@@ -56,8 +54,8 @@ public class KeyGeneratorTest {
         Assert.assertEquals(result.getPublicKeyFile(), publicKeyDestination);
         Assert.assertEquals(result.getPrivateKeyFile(), privateKeyDestination);
 
-        Assert.assertTrue(publicKeyDestination.toFile().exists());
-        Assert.assertTrue(privateKeyDestination.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKeyDestination));
+        Assert.assertTrue(Files.exists(privateKeyDestination));
     }
 
 }

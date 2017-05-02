@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -78,12 +79,13 @@ public class KeyGenerator {
         PemObject publicPem = new PemObject("RSA PUBLIC KEY", pair.getPublic().getEncoded());
         PemObject privatePem = new PemObject("RSA PRIVATE KEY", pair.getPrivate().getEncoded());
 
-        try (PemWriter pemWriter = new PemWriter(new OutputStreamWriter(Files.newOutputStream(publicKeyDestination)))) {
+        try (PemWriter pemWriter = new PemWriter(
+                new OutputStreamWriter(Files.newOutputStream(publicKeyDestination, StandardOpenOption.CREATE_NEW)))) {
             pemWriter.writeObject(publicPem);
         }
 
         try (PemWriter pemWriter = new PemWriter(
-                new OutputStreamWriter(Files.newOutputStream(privateKeyDestination)))) {
+                new OutputStreamWriter(Files.newOutputStream(privateKeyDestination, StandardOpenOption.CREATE_NEW)))) {
             pemWriter.writeObject(privatePem);
         }
 

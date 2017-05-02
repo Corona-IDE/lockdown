@@ -59,8 +59,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
+        Files.createFile(publicKey);
+        Files.createFile(privateKey);
 
         logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
 
@@ -69,8 +69,8 @@ public class KeyGenerationTest {
         LockdownCommandLine.main(args);
 
         // Should not be generated over blank files, which will fail the encrypt step
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -98,38 +98,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
-
-        Path testStore = outputDirectory.resolve("test.store");
-
-        publicKey.toFile().deleteOnExit();
-        privateKey.toFile().deleteOnExit();
-        testStore.toFile().deleteOnExit();
-
-        CredentialStore store = CredentialStore.loadOrCreate(testStore);
-
-        store.addOrUpdateCredentials("TEST", "user", "pass".toCharArray(), publicKey);
-        store.accessCredentials("TEST", privateKey, (a, b) -> validateCredentials(a, b, "user", "pass".toCharArray()));
-    }
-
-    @Test
-    public void generateMinimumArgsLongForm() throws Exception {
-        Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
-        outputDirectory.toFile().deleteOnExit();
-
-        logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
-
-        String[] args = new String[] { GENERATE_CMD, "--output", outputDirectory.toAbsolutePath().toString() };
-
-        LockdownCommandLine.main(args);
-
-        // Should be generated in the provided location with default names. Load and attempt use
-        Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
-        Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
-
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -161,41 +131,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(baseName + ".pub");
         Path privateKey = outputDirectory.resolve(baseName);
 
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
-
-        Path testStore = outputDirectory.resolve("test.store");
-
-        publicKey.toFile().deleteOnExit();
-        privateKey.toFile().deleteOnExit();
-        testStore.toFile().deleteOnExit();
-
-        CredentialStore store = CredentialStore.loadOrCreate(testStore);
-
-        store.addOrUpdateCredentials("TEST", "user", "pass".toCharArray(), publicKey);
-        store.accessCredentials("TEST", privateKey, (a, b) -> validateCredentials(a, b, "user", "pass".toCharArray()));
-    }
-
-    @Test
-    public void generateFileNameLongForm() throws Exception {
-        String baseName = "test_rsa";
-
-        Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
-        outputDirectory.toFile().deleteOnExit();
-
-        logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
-
-        String[] args = new String[] { GENERATE_CMD, "-o", outputDirectory.toAbsolutePath().toString(), "--name",
-                baseName };
-
-        LockdownCommandLine.main(args);
-
-        // Should be generated in the provided location with default names. Load and attempt use
-        Path publicKey = outputDirectory.resolve(baseName + ".pub");
-        Path privateKey = outputDirectory.resolve(baseName);
-
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 
@@ -217,8 +154,8 @@ public class KeyGenerationTest {
         Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
         Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
 
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
+        Files.createFile(publicKey);
+        Files.createFile(privateKey);
 
         logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
 
@@ -227,41 +164,8 @@ public class KeyGenerationTest {
         LockdownCommandLine.main(args);
 
         // Should be generated in the provided location with default names. Load and attempt use
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
-
-        Path testStore = outputDirectory.resolve("test.store");
-
-        publicKey.toFile().deleteOnExit();
-        privateKey.toFile().deleteOnExit();
-        testStore.toFile().deleteOnExit();
-
-        CredentialStore store = CredentialStore.loadOrCreate(testStore);
-
-        store.addOrUpdateCredentials("TEST", "user", "pass".toCharArray(), publicKey);
-        store.accessCredentials("TEST", privateKey, (a, b) -> validateCredentials(a, b, "user", "pass".toCharArray()));
-    }
-
-    @Test
-    public void generateForceOverwriteLongForm() throws Exception {
-        Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
-        outputDirectory.toFile().deleteOnExit();
-
-        Path publicKey = outputDirectory.resolve(DEFAULT_PUBLIC_NAME);
-        Path privateKey = outputDirectory.resolve(DEFAULT_PRIVATE_NAME);
-
-        publicKey.toFile().createNewFile();
-        privateKey.toFile().createNewFile();
-
-        logger.debug("Test outputing to: {}", outputDirectory.toAbsolutePath().toString());
-
-        String[] args = new String[] { GENERATE_CMD, "-o", outputDirectory.toAbsolutePath().toString(), "--force" };
-
-        LockdownCommandLine.main(args);
-
-        // Should be generated in the provided location with default names. Load and attempt use
-        Assert.assertTrue(publicKey.toFile().exists());
-        Assert.assertTrue(privateKey.toFile().exists());
+        Assert.assertTrue(Files.exists(publicKey));
+        Assert.assertTrue(Files.exists(privateKey));
 
         Path testStore = outputDirectory.resolve("test.store");
 

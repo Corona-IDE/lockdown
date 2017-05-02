@@ -12,9 +12,13 @@ package com.coronaide.lockdown.cli.command;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
@@ -50,10 +54,12 @@ public class KeyGeneratorCommand implements Runnable {
 
     @Override
     public void run() {
+        FileSystem fileSystem = FileSystems.getDefault();
         KeyGenerator generator = new KeyGenerator();
 
-        Path publicKeyDestination = outputDirectory.toPath().resolve(baseFileName + PUBLIC_KEY_SUFFIX);
-        Path privateKeyDestination = outputDirectory.toPath().resolve(baseFileName);
+        Path destinationDirectory = fileSystem.getPath(outputDirectory.toPath().toString());
+        Path publicKeyDestination = destinationDirectory.resolve(baseFileName + PUBLIC_KEY_SUFFIX);
+        Path privateKeyDestination = destinationDirectory.resolve(baseFileName);
 
         Collection<Path> unremovableKeys = getUnremovableKeys(publicKeyDestination, privateKeyDestination);
 
@@ -83,22 +89,20 @@ public class KeyGeneratorCommand implements Runnable {
      * @return A collection of the keys which exist and cannot be removed per the client's specified options
      */
     private Collection<Path> getUnremovableKeys(Path publicKeyDestination, Path privateKeyDestination) {
-        Collection<Path> existingKeys = new ArrayList<>();
+        Collection<Path> existingKeys = Arrays.asList(publicKeyDestination, privateKeyDestination).stream()
+                .filter(Files::exists)
+                .collect(Collectors.toList());
 
-        if (publicKeyDestination.toFile().exists()) {
-            existingKeys.add(publicKeyDestination);
-        }
+        if (overwrite) {
+            try {
+                for (Path key : existingKeys) {
+                    Files.delete(key);
+                }
 
-        if (privateKeyDestination.toFile().exists()) {
-            existingKeys.add(privateKeyDestination);
-        }
-
-        if (overwrite && !existingKeys.isEmpty()) {
-            existingKeys.stream()
-            .map(Path::toFile)
-            .forEach(File::delete);
-
-            existingKeys.clear();
+                existingKeys.clear();
+            } catch (IOException e) {
+                logger.error("Error removing keys", e);
+            }
         }
 
         return existingKeys;
