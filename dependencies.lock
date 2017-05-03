@@ -4,6 +4,8 @@
 	"com.google.code.findbugs:jsr305": { "locked": "3.0.1" },
 	
 	"com.google.jimfs:jimfs": { "locked": "1.1" },
+	
+	"org.jline:jline": { "locked": "3.2.0" },
 
 	"org.bouncycastle:bcpg-jdk15on": { "locked": "1.56" },
 	

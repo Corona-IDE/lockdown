@@ -21,6 +21,7 @@ import org.kohsuke.args4j.spi.SubCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.coronaide.lockdown.cli.command.AddCredentialsCommand;
 import com.coronaide.lockdown.cli.command.KeyGeneratorCommand;
 
 /**
@@ -36,7 +37,8 @@ public class LockdownCommandLine {
 
     @Argument(handler = SubCommandHandler.class)
     @SubCommands({
-        @SubCommand(name = "generate", impl = KeyGeneratorCommand.class)
+            @SubCommand(name = "generate", impl = KeyGeneratorCommand.class),
+            @SubCommand(name = "addkey", impl = AddCredentialsCommand.class)
     })
     private Runnable command;
 
