@@ -11,7 +11,7 @@ before_install:
   - pip install --user codecov
   
 script:
-  - travis_wait 30 ./gradlew check
+  - ./gradlew check -x :lockdown-cli:test
   - ./gradlew codeCoverageReport
   - ./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN
 
