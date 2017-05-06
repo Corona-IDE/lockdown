@@ -29,21 +29,21 @@ public class KeyGeneratorTest {
     // Use a virtual file system for tests, as CI providers can be much lower power
     private FileSystem virtualFileSystem = Jimfs.newFileSystem(Configuration.unix());
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = NullPointerException.class, groups = "KEY_GENERATION_TEST")
     public void createKeyPairNullPublicKeyDestination() throws Exception {
         Path publicKeyDestination = virtualFileSystem.getPath("key", "public");
 
         keyGenerator.createKeyPair(publicKeyDestination, null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = NullPointerException.class, groups = "KEY_GENERATION_TEST")
     public void createKeyPairNullPrivateKeyDestination() throws Exception {
         Path privateKeyDestination = virtualFileSystem.getPath("key", "private");
 
         keyGenerator.createKeyPair(null, privateKeyDestination);
     }
 
-    @Test
+    @Test(groups = "KEY_GENERATION_TEST")
     public void createKeyPair() throws Exception {
         Path publicKeyDestination = virtualFileSystem.getPath("create.public");
         Path privateKeyDestination = virtualFileSystem.getPath("create.private");

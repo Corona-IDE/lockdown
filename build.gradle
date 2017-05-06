@@ -113,6 +113,12 @@ subprojects{
         
         useTestNG() {
             useDefaultListeners = true
+            
+            //For CI builds on low-power machines, we need to ability to skip computation-intensive tests
+            if(project.hasProperty('skipKeyGenerationTests')){
+                logger.warn('Skipping long-running key generation tests');
+                excludeGroups 'KEY_GENERATION_TEST'
+            }
         }
     }
     

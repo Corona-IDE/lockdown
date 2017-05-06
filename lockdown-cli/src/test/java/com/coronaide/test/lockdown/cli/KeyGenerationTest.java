@@ -32,7 +32,7 @@ public class KeyGenerationTest {
     /** Logger reference to output information to the application log files */
     private static final Logger logger = LoggerFactory.getLogger(KeyGenerationTest.class);
 
-    @Test
+    @Test(groups = "KEY_GENERATION_TEST")
     public void generateNoArguments() throws Exception {
         Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
         outputDirectory.toFile().deleteOnExit();
@@ -51,7 +51,7 @@ public class KeyGenerationTest {
         Assert.assertFalse(privateKey.toFile().exists());
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = NullPointerException.class, groups = "KEY_GENERATION_TEST")
     public void generateKeysExistNoForce() throws Exception {
         Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
         outputDirectory.toFile().deleteOnExit();
@@ -83,7 +83,7 @@ public class KeyGenerationTest {
         store.addOrUpdateCredentials("TEST", "user", "pass".toCharArray(), publicKey);
     }
 
-    @Test
+    @Test(groups = "KEY_GENERATION_TEST")
     public void generateMinimumArgsShortForm() throws Exception {
         Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
         outputDirectory.toFile().deleteOnExit();
@@ -113,7 +113,7 @@ public class KeyGenerationTest {
         store.accessCredentials("TEST", privateKey, (a, b) -> validateCredentials(a, b, "user", "pass".toCharArray()));
     }
 
-    @Test
+    @Test(groups = "KEY_GENERATION_TEST")
     public void generateFileNameShortForm() throws Exception {
         String baseName = "test_rsa";
 
@@ -146,7 +146,7 @@ public class KeyGenerationTest {
         store.accessCredentials("TEST", privateKey, (a, b) -> validateCredentials(a, b, "user", "pass".toCharArray()));
     }
 
-    @Test
+    @Test(groups = "KEY_GENERATION_TEST")
     public void generateForceOverwriteShortForm() throws Exception {
         Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
         outputDirectory.toFile().deleteOnExit();
