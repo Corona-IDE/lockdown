@@ -1,8 +1,5 @@
-test{
-    //Addextra logging for cli to prevent Travis timeout
-    beforeTest { descriptor ->
-        logger.lifecycle("Running test: " + descriptor)
-     }
+plugins {
+  id 'us.kirchmeier.capsule' version '1.0.2'
 }
 
 //Dependency versions managed in $rootDir/dependencies.lock
@@ -15,4 +12,12 @@ dependencies {
     runtime group: 'org.slf4j', name: 'slf4j-simple'
     
     testCompile group: 'org.testng', name: 'testng'
+}
+
+task distCapsule(type: FatCapsule) {
+    applicationClass 'com.coronaide.lockdown.cli.LockdownCommandLine'
+}
+
+artifacts {
+    archives distCapsule
 }
