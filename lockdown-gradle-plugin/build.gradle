@@ -1,4 +1,8 @@
+apply plugin: 'groovy'
+
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
+    compile gradleApi()
+    compile localGroovy()
     compile project(':lockdown-cli')
 }
