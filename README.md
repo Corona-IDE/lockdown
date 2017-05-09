@@ -1,6 +1,7 @@
 # Lockdown
 
-[![Travis CI](https://img.shields.io/travis/Corona-IDE/lockdown.svg?branch=master)](https://travis-ci.org/Corona-IDE/lockdown) [![Code Coverage](https://img.shields.io/codecov/c/github/Corona-IDE/lockdown.svg)](https://codecov.io/github/Corona-IDE/lockdown) [![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.coronaide:lockdown)](https://sonarqube.com/dashboard/index/com.coronaide:lockdown)
+[![Travis CI](https://img.shields.io/travis/Corona-IDE/lockdown.svg?branch=master)](https://travis-ci.org/Corona-IDE/lockdown) [![Code Coverage](https://img.shields.io/codecov/c/github/Corona-IDE/lockdown.svg)](https://codecov.io/github/Corona-IDE/lockdown) [![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/groups/Corona-IDE/locations/lockdown/public/results/branches/master) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.coronaide:lockdown)](https://sonarqube.com/dashboard/index/com.coronaide:lockdown) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 When you simply can't avoid storing basic credentials
 
