@@ -5,7 +5,7 @@
 
 When you simply can't avoid storing basic credentials
 
-Usually, when storing credentials, one-way encryption is used to protect sensitive information. However, some libraries and other systems require access to a set of clear-text credentials for systems such as remote applications or databases.
+Usually, when storing credentials, one-way encryption is used to protect sensitive information. However, some systems require access to a set of clear-text credentials for authentication.
 
 Lockdown is intended for those cases - where the need for clear-text credentials cannot be eliminated from an application. It applies a thin convenience layer on top of the established bouncycastle encryption libraries which allows simpler use the RSA public/private key encryption pattern.
 
