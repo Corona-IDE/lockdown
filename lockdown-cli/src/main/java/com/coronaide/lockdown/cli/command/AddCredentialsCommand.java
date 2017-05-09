@@ -46,26 +46,20 @@ public class AddCredentialsCommand implements Runnable {
             usage = "Specifies the public key to use to encrypt credentials. Required")
     private File publicKey;
 
-    @Option(name = "-u", aliases = { "--username" }, required = false,
-            usage = "Specifies the username to store. Default is to enter at runtime")
-    private String username = null;
-
     @Override
     public void run() {
         try {
             CredentialStore store = CredentialStore.loadOrCreate(credentialStore.toPath());
             Console console = System.console();
 
-            if (username == null) {
-                username = console.readLine("Username: ");
-            }
-
+            String username = console.readLine("Username: ");
             char[] password = console.readPassword("Password: ");
-            char[] confirmPassword = console.readPassword("Confirm Password: ");
 
             if (password.length == 0) {
                 throw new IllegalArgumentException("Blank password entered");
             }
+
+            char[] confirmPassword = console.readPassword("Confirm Password: ");
 
             if (!Arrays.equals(password, confirmPassword)) {
                 throw new IllegalArgumentException("Passwords did not match");
