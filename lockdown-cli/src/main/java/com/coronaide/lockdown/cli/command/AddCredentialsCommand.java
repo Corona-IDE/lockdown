@@ -10,15 +10,12 @@
  */
 package com.coronaide.lockdown.cli.command;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
 import org.bouncycastle.crypto.InvalidCipherTextException;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
@@ -57,18 +54,25 @@ public class AddCredentialsCommand implements Runnable {
     public void run() {
         try {
             CredentialStore store = CredentialStore.loadOrCreate(credentialStore.toPath());
-
-            Terminal terminal = TerminalBuilder.builder()
-                    .system(true)
-                    .build();
-            LineReader lineReader = LineReaderBuilder.builder()
-                    .terminal(terminal)
-                    .build();
+            Console console = System.console();
 
             if (username == null) {
-                username = lineReader.readLine("Username: ");
+                username = console.readLine("Username: ");
             }
-            char[] password = lineReader.readLine("Password: ", '*').toCharArray();
+
+            char[] password = console.readPassword("Password: ");
+            char[] confirmPassword = console.readPassword("Confirm Password: ");
+
+            if (password.length == 0) {
+                throw new IllegalArgumentException("Blank password entered");
+            }
+
+            if (!Arrays.equals(password, confirmPassword)) {
+                throw new IllegalArgumentException("Passwords did not match");
+            }
+
+            // Don't need confirm anymore, null it
+            Arrays.fill(confirmPassword, '\0');
 
             try {
                 store.addOrUpdateCredentials(lookupKey, username, password, publicKey.toPath());

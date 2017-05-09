@@ -105,6 +105,8 @@ public class CredentialStore {
         try (OutputStream outputStream = Files.newOutputStream(credentialFile)) {
             properties.store(outputStream, null);
         }
+
+        logger.info("Credentials added for lookup key {}", lookupKey);
     }
 
     /**
@@ -193,7 +195,7 @@ public class CredentialStore {
         if (!credentialFile.toFile().exists()) {
             boolean existed = credentialFile.toFile().createNewFile();
 
-            if (existed) {
+            if (!existed) {
                 logger.warn("File.exists() check did not match upon creation at location {}", credentialFile.toUri());
             }
         }
