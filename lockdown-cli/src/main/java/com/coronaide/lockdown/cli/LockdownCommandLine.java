@@ -99,7 +99,6 @@ public class LockdownCommandLine {
         usageWriter.append('\n');
 
         parser.printUsage(usageWriter, null);
-        System.err.println();
 
         // Print sub-command usages
         Map<String, Object> subCommands = new HashMap<>();
@@ -115,7 +114,8 @@ public class LockdownCommandLine {
             usageWriter.append('\n');
         }
 
-        logger.error("\n{}", usageWriter.toString());
+        String usage = usageWriter.toString();
+        logger.error("\n{}", usage);
     }
 
 }
