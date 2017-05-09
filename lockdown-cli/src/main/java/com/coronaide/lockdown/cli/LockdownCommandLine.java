@@ -11,6 +11,10 @@
 package com.coronaide.lockdown.cli;
 
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -37,8 +41,8 @@ public class LockdownCommandLine {
 
     @Argument(handler = SubCommandHandler.class)
     @SubCommands({
-            @SubCommand(name = "generate", impl = KeyGeneratorCommand.class),
-            @SubCommand(name = "addkey", impl = AddCredentialsCommand.class)
+        @SubCommand(name = "generate", impl = KeyGeneratorCommand.class),
+        @SubCommand(name = "addkey", impl = AddCredentialsCommand.class)
     })
     private Runnable command;
 
@@ -67,17 +71,51 @@ public class LockdownCommandLine {
             // parse the arguments.
             parser.parseArgument(args);
 
-            command.run();
+            if (command != null) {
+                command.run();
+            } else {
+                logger.error("Invalid command line arguments");
+                printUsage(parser);
+            }
         } catch (CmdLineException e) {
             logger.error("Invalid command line arguments", e);
+            printUsage(parser);
+        }
+    }
 
-            StringWriter usageCapture = new StringWriter();
+    /**
+     * Prints the usage of application
+     *
+     * @param parser
+     *            The main application parser to print usage details for
+     */
+    private void printUsage(CmdLineParser parser) {
+        Objects.requireNonNull(parser);
 
-            parser.printUsage(usageCapture, null);
+        StringWriter usageWriter = new StringWriter();
 
-            logger.info("java LockdownCommandLine [options...] arguments...\n{}\n", usageCapture.toString());
+        usageWriter.append("java LockdownCommandLine (generate | addkey) [options...] arguments...");
+        usageWriter.append('\n');
+        usageWriter.append('\n');
+
+        parser.printUsage(usageWriter, null);
+        System.err.println();
+
+        // Print sub-command usages
+        Map<String, Object> subCommands = new HashMap<>();
+        subCommands.put("generate", new KeyGeneratorCommand());
+        subCommands.put("addkey", new AddCredentialsCommand());
+
+        for (Entry<String, Object> subCommand : subCommands.entrySet()) {
+            usageWriter.append(subCommand.getKey());
+            usageWriter.append('\n');
+
+            CmdLineParser subParser = new CmdLineParser(subCommand.getValue());
+            subParser.printUsage(usageWriter, null);
+            usageWriter.append('\n');
         }
 
+        logger.error("\n{}", usageWriter.toString());
     }
 
 }
