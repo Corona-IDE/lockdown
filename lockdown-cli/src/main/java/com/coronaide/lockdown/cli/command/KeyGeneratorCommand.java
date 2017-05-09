@@ -65,6 +65,8 @@ public class KeyGeneratorCommand implements Runnable {
 
         if (unremovableKeys.isEmpty()) {
             try {
+                Files.createDirectories(destinationDirectory);
+
                 KeyFiles generatedKeys = generator.createKeyPair(publicKeyDestination, privateKeyDestination);
 
                 logger.info("Key files generated to \n\tPublic: {}\n\tPrivate: {}",
