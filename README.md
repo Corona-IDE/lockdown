@@ -32,7 +32,7 @@ private void loadCredentials(String lookupKey Path credentialStorePath, Path pri
   store.accessCredentials(lookupKey, this::accessCredentials);
 }
 
-private void applyCredentials(String username, char[] password){
+private void accessCredentials(String username, char[] password){
   //Use credentials - it is recommended to NOT store them in non-local variables
 }
 ```
