@@ -10,10 +10,14 @@
  */
 package com.coronaide.lockdown.cli.command;
 
+import java.io.Closeable;
 import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Scanner;
 
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.kohsuke.args4j.Argument;
@@ -48,18 +52,17 @@ public class AddCredentialsCommand implements Runnable {
 
     @Override
     public void run() {
-        try {
+        try (InputHandler inputHandler = new InputHandler()) {
             CredentialStore store = CredentialStore.loadOrCreate(credentialStore.toPath());
-            Console console = System.console();
 
-            String username = console.readLine("Username: ");
-            char[] password = console.readPassword("Password: ");
+            String username = inputHandler.readLine("Username: ");
+            char[] password = inputHandler.readPassword("Password: ");
 
             if (password.length == 0) {
                 throw new IllegalArgumentException("Blank password entered");
             }
 
-            char[] confirmPassword = console.readPassword("Confirm Password: ");
+            char[] confirmPassword = inputHandler.readPassword("Confirm Password: ");
 
             if (!Arrays.equals(password, confirmPassword)) {
                 throw new IllegalArgumentException("Passwords did not match");
@@ -77,6 +80,57 @@ public class AddCredentialsCommand implements Runnable {
             logger.error("Error writing to credential store", e);
         } catch (InvalidCipherTextException e) {
             logger.error("Error encrypting credentials", e);
+        }
+    }
+
+    /**
+     * Represents an abstraction of the input mechanism for getting credentials to add during the command's run
+     *
+     * <p>
+     * Tries to use System.console(), as is provides a more secure password entry mechanism. Falls back to Scanner if
+     * the console is unavailable
+     * 
+     * @author romeara
+     * @since 0.1.0
+     */
+    private static class InputHandler implements Closeable {
+
+        private final Optional<Console> console;
+
+        private final Scanner scanner;
+
+        public InputHandler() {
+            console = Optional.ofNullable(System.console());
+            scanner = new Scanner(System.in);
+        }
+
+        public String readLine(String prompt) {
+            Objects.requireNonNull(prompt);
+
+            return console.map(c -> c.readLine(prompt))
+                    .orElseGet(() -> readFromScanner(prompt));
+        }
+
+        public char[] readPassword(String prompt) {
+            Objects.requireNonNull(prompt);
+
+            return console.map(c -> c.readPassword(prompt))
+                    .orElseGet(() -> readFromScanner(prompt).toCharArray());
+        }
+
+        private String readFromScanner(String prompt) {
+            Objects.requireNonNull(prompt);
+
+            System.out.print(prompt);
+            String result = scanner.nextLine();
+            System.out.print('\n');
+
+            return result;
+        }
+
+        @Override
+        public void close() throws IOException {
+            scanner.close();
         }
     }
 
