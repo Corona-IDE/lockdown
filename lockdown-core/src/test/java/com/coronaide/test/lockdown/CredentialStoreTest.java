@@ -26,7 +26,7 @@ import com.coronaide.lockdown.CredentialStore;
 
 public class CredentialStoreTest {
 
-    private static final Path TEST_KEY_DIRECTORY = Paths.get("com/coronaide/test/lockdown/cli/keys");
+    private static final Path TEST_KEY_DIRECTORY = Paths.get("com/coronaide/test/lockdown/core/keys");
 
     private static final Path TEST_KEY_1_PUBLIC = TEST_KEY_DIRECTORY.resolve("test_rsa_1.pub");
 
