@@ -11,7 +11,7 @@ Lockdown is intended for those cases - where the need for clear-text credentials
 
 ## Contributing
 
-Information for how to contribute to Lockdown can be found in [CONTRIBUTING.md](CONTRIBUTING.md)
+Information for how to contribute to Lockdown can be found in [the contribution guidelines](CONTRIBUTING.md)
 
 ## Projects
 
