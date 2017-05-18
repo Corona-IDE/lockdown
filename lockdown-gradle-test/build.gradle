@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.0-SNAPSHOT', changing: true
+    }
+}
+
+task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask){
+    publicKey "${projectDir}/test_rsa_1.pub"
+    credentialFile "${projectDir}/credentials.properties"
+}
