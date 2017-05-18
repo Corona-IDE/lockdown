@@ -57,4 +57,22 @@ The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams
 
 #### Usage
 
-TODO romeara Setup documentation in progress
+The Lockdown Gradle plug-in is still in development, and must be deployed locally to maven for testing/use
+
+
+```
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.0-SNAPSHOT', changing: true
+    }
+}
+
+task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask){
+    publicKey "${projectDir}/test_rsa_1.pub"
+    credentialFile "${projectDir}/credentials.properties"
+}
+```
