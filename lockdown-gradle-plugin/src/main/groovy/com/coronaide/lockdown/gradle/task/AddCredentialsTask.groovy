@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2017 The Corona-IDE@github.com Authors
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
 package com.coronaide.lockdown.gradle.task
 
 import org.gradle.api.GradleException

@@ -1,12 +1,8 @@
 /*
- * Copyright (c) Apr 25, 2017 Corona IDE.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (C) 2017 The Corona-IDE@github.com Authors
  *
- * Contributors:
- *    romeara - initial API and implementation and/or initial documentation
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
  */
 package com.coronaide.lockdown;
 
