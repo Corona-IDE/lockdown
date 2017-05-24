@@ -9,3 +9,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add APIs for generate RSA public/private key pairs
 - Added APIs for adding and accessing encrypted credentials
 - Add a command-line tool for key generation and credential addition by clients
+- Add a Gradle plug-in for developer addition of credentials without downloading CLI
