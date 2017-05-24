@@ -6,9 +6,14 @@
  */
 package com.coronaide.lockdown.gradle.task
 
+import java.nio.file.Paths
+
+import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
-import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
+
+import com.coronaide.lockdown.CredentialStore
+import com.coronaide.lockdown.gradle.CredentialPrompt
 
 /**
  * Gradle task which allows users to add/update credentials without downloading the CLI separately
@@ -16,7 +21,7 @@ import org.gradle.api.tasks.TaskAction
  * @author romeara
  * @since 0.1.0
  */
-public class AddCredentialsTask extends JavaExec {
+public class AddCredentialsTask extends DefaultTask {
 
     private String publicKey
 
@@ -40,14 +45,13 @@ public class AddCredentialsTask extends JavaExec {
             throw new GradleException('Public key for encrypting added credentials not provided')
         }
 
-        main = 'com.coronaide.lockdown.cli.LockdownCommandLine'
-        classpath = project.buildscript.configurations.classpath
-        standardInput = System.in
+        CredentialPrompt credentials = new CredentialPrompt()
+        credentials.prompt()
 
-        // arguments to pass to the application
-        args 'addkey', "${lookupKey}", '-o', "${credentialFile}", '-k', "${publicKey}"
+        CredentialStore store = CredentialStore.loadOrCreate(Paths.get(credentialFile));
+        store.addOrUpdateCredentials(lookupKey, credentials.username, credentials.password.toCharArray(), Paths.get(publicKey))
 
-        super.exec()
+        logger.lifecycle("Credentials added to store at ${credentialFile} under key ${lookupKey}")
     }
 
     public void setPublicKey(String publicKey){
@@ -61,4 +65,5 @@ public class AddCredentialsTask extends JavaExec {
     public void setLookupKey(String lookupKey){
         this.lookupKey = lookupKey
     }
+
 }
