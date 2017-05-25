@@ -74,22 +74,22 @@ The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams
 
 #### Usage
 
-The Lockdown Gradle plug-in is still in development, and must be deployed locally to maven for testing/use
+Add the Lockdown Gradle plug-in to your buildscript classpath, and then use the AddCredentialsTask to allow developers to add encrypted values:
 
 
 ```
 buildscript {
     repositories {
-        mavenLocal()
+        maven { url 'https://dl.bintray.com/corona-ide/lockdown' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.0-SNAPSHOT', changing: true
+        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.0'
     }
 }
 
 task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask){
-    publicKey "${projectDir}/test_rsa_1.pub"
+    publicKey "${projectDir}/id_rsa.pub"
     credentialFile "${projectDir}/credentials.properties"
 }
 ```
