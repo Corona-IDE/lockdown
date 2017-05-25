@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.0]
 ### Added
-- Add APIs for generate RSA public/private key pairs
+- Add APIs for generating RSA public/private key pairs
 - Added APIs for adding and accessing encrypted credentials
 - Add a command-line tool for key generation and credential addition by clients
 - Add a Gradle plug-in for developer addition of credentials without downloading CLI
