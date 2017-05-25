@@ -1,3 +1,5 @@
+description = 'APIs for storing and reading encrypted credentials'
+
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
     compile group: 'com.google.code.findbugs', name: 'jsr305'

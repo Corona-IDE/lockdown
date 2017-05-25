@@ -93,3 +93,7 @@ task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask)
     credentialFile "${projectDir}/credentials.properties"
 }
 ```
+
+## Collaborators
+
+Information for collaborators, including the release process, can be found in the [collaborator documention](./COLLABORATORS.md)

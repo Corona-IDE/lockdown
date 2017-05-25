@@ -10,6 +10,7 @@ buildscript {
         classpath group: 'com.netflix.nebula', name: 'nebula-dependency-recommender', version: '4.2.0'
         classpath group: 'com.netflix.nebula', name: 'nebula-publishing-plugin', version: '4.2.0'
         classpath group: 'com.blackducksoftware.integration', name: 'hub-gradle-plugin', version: '4.0.0'
+        classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version: '1.7.3'
     }
 }
 
@@ -78,6 +79,8 @@ allprojects{
 
 subprojects{
     apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+    apply plugin: 'nebula.maven-base-publish'
     
     //Add LICENSE so it is included in all JARs, fulfilling the "distributions include license" requirement
     jar{
@@ -154,10 +157,26 @@ subprojects{
         }
     }
     
-    //TODO romeara testing
-    publishing {
-        repositories {
-            mavenLocal()
+    bintray {
+        user = System.getProperty('bintray_user')
+        key = System.getProperty('bintray_key')
+        publications = [ 'nebula' ]
+        pkg {
+            repo = 'lockdown'
+            name = "${project.name}"
+            userOrg = 'corona-ide'
+            licenses = ['MIT']
+            vcsUrl = 'https://github.com/Corona-IDE/lockdown'
+            
+            version {
+                name = "${version}"
+                released  = new Date()
+                vcsTag = "${version}"
+                
+                gpg {
+                    sign = true
+                }
+            }
         }
     }
 }

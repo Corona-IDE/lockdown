@@ -1,5 +1,7 @@
 apply plugin: 'groovy'
 
+description = 'Gradle tasks and utilities for credential management'
+
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
     compile gradleApi()
