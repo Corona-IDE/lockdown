@@ -5,9 +5,9 @@
 * [Contributing](#contributing)
 * [Legal](#legal)
 * [Projects](#projects)
- * [lockdown-core](#lockdown-core)
- * [lockdown-cli](#lockdown-cli)
- * [lockdown-gradle-plugin](#lockdown-gradle-plugin)
+    * [lockdown-core](#lockdown-core)
+    * [lockdown-cli](#lockdown-cli)
+    * [lockdown-gradle-plugin](#lockdown-gradle-plugin)
 
 When you simply can't avoid storing basic credentials
 
