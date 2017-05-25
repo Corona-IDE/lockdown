@@ -81,6 +81,7 @@ subprojects{
     apply plugin: 'maven-publish'
     apply plugin: 'com.jfrog.bintray'
     apply plugin: 'nebula.maven-base-publish'
+    apply plugin: 'nebula.maven-dependencies'
     
     //Add LICENSE so it is included in all JARs, fulfilling the "distributions include license" requirement
     jar{
@@ -157,6 +158,27 @@ subprojects{
         }
     }
     
+    publishing {
+        publications {
+            nebula(MavenPublication) {
+                artifact sourcesJar {
+                    classifier 'sources'
+                }
+                artifact javadocJar {
+                    classifier 'javadoc'
+                }
+                pom.withXml {
+                    configurations.compile.resolvedConfiguration.firstLevelModuleDependencies.each { dep ->
+                        asNode().dependencies[0].dependency.find {
+                            it.artifactId[0].text() == dep.moduleName &&
+                            it.groupId[0].text() == dep.moduleGroup
+                        }?.scope[0]?.value = 'compile'
+                    }
+                }
+            }
+        }
+    }
+    
     bintray {
         user = System.getProperty('bintray_user')
         key = System.getProperty('bintray_key')
@@ -169,9 +191,10 @@ subprojects{
             vcsUrl = 'https://github.com/Corona-IDE/lockdown'
             
             version {
-                name = "${version}"
+                name = "${lockdownVersion}"
+                desc = "${project.name} release ${lockdownVersion} final"
                 released  = new Date()
-                vcsTag = "${version}"
+                vcsTag = "${lockdownVersion}"
                 
                 gpg {
                     sign = true
