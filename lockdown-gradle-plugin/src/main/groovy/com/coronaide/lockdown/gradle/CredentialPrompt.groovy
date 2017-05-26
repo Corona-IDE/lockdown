@@ -20,10 +20,20 @@ public class CredentialPrompt {
 
     private String password
 
+    private String title
+
+    public CredentialPrompt(){
+        this('Enter Credentials')
+    }
+
+    public CredentialPrompt(String title){
+        this.title = title
+    }
+
     public void prompt(){
         new SwingBuilder().edt {
             dialog(modal: true, // Otherwise the build will continue running before you closed the dialog
-            title: 'Enter Credentials',
+            title: title,
             alwaysOnTop: true,
             resizable: false, // Don't allow the user to resize the dialog
             locationRelativeTo: null, // Place dialog in center of the screen
