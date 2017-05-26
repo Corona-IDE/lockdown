@@ -8,7 +8,7 @@
 * Commit the version number and CHANGE_LOG updates
 * Tag the git repository with the fully-qualified semantic version number
 * Generate the lockdown-CLI capsule via `./gradlew distCapsule`
-* Upload artifacts to bintray via `./gradlew bintrayUpload -Dbintray_user=<username> -Dbintray_key=<API Key>`
+* Upload artifacts to bintray via `./gradlew bintrayUpload -PremoteDeploy -Dbintray_user=<username> -Dbintray_key=<API Key>`
 * Verify all artifacts were correctly uploaded - check that POM.xml scopes and version numbers are correct
 * Change version number to `<released version> + 1 micro` + `-SNAPSHOT`
 * Commit to git
