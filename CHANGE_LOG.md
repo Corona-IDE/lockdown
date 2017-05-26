@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1]
+- Added required meta-data toPOM for Maven Central
+- Made title of credential login dialog configurable
+
 ## [0.1.0]
 ### Added
 - Add APIs for generating RSA public/private key pairs
