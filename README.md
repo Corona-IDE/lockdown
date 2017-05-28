@@ -33,7 +33,7 @@ If you discover a security vulnerability, contact the development team by e-mail
 ## Projects
 
 ### lockdown-core
-[![JCenter](https://api.bintray.com/packages/corona-ide/lockdown/lockdown-core/images/download.svg)](https://bintray.com/corona-ide/lockdown/lockdown-core/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-core)
 
 Lockdown Core is where the central key generation and encryption/decryption APIs are defined. This library is intended for use within applications consuming lockdown, and allows access to credential storage files created programmatically, with the CLI, or via the Gradle plug-in.
 
@@ -56,7 +56,7 @@ private void accessCredentials(String username, char[] password){
 ```
 
 ### lockdown-cli
-[![JCenter](https://api.bintray.com/packages/corona-ide/lockdown/lockdown-cli/images/download.svg)](https://bintray.com/corona-ide/lockdown/lockdown-cli/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-cli)
 
 Lockdown CLI is a command line tool for creating keys and adding credentials to credential store files.
 
@@ -71,7 +71,7 @@ java -jar lockdown-cli-<version>-capsule.jar (generate|addkey) [options] argumen
 **Note:** When adding keys, the password will not be displayed as it is typed for security reasons (similar to behavior when logging in via ssh)
 
 ### lockdown-gradle-plugin
-[![JCenter](https://api.bintray.com/packages/corona-ide/lockdown/lockdown-gradle-plugin/images/download.svg)](https://bintray.com/corona-ide/lockdown/lockdown-gradle-plugin/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-gradle-plugin)
 
 The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams to easily expose the ability to add/update credentials in credential storage files without requiring all team members to install the Lockdown CLI.
 
@@ -83,7 +83,6 @@ Add the Lockdown Gradle plug-in to your buildscript classpath, and then use the 
 ```
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
     }
     dependencies {
