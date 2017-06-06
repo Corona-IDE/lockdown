@@ -5,7 +5,7 @@ Lockdown CLI is a command line tool for creating keys and adding credentials to 
 
 ## Usage
 
-Download the Lockdown CLI capsule from the GitHub Releases page. Entering no arguments will display usage information
+Download the Lockdown CLI capsule from the [GitHub Releases page](https://github.com/Corona-IDE/lockdown/releases). Entering no arguments will display usage information
 
 ```
 java -jar lockdown-cli-<version>-capsule.jar (generate|addkey) [options] arguments....
