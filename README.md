@@ -9,6 +9,7 @@
     * [lockdown-core](#lockdown-core)
     * [lockdown-cli](#lockdown-cli)
     * [lockdown-gradle-plugin](#lockdown-gradle-plugin)
+* [Handling Key Files](#handling-key-files)
 
 When you simply can't avoid storing basic credentials
 
@@ -35,90 +36,27 @@ If you discover a security vulnerability, contact the development team by e-mail
 ### lockdown-core
 [![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-core)
 
-Lockdown Core is where the central key generation and encryption/decryption APIs are defined. This library is intended for use within applications consuming lockdown, and allows access to credential storage files created programmatically, with the CLI, or via the Gradle plug-in.
+Lockdown Core is where the central key generation and encryption/decryption APIs are defined. This library is intended for use within applications consuming lockdown, and allows access to credential storage files.
 
-#### Usage
-
-- **lookupKey:** A unique label for a set of credentials in a store. Determined when credentials are added to the store
-- **credentialStorePath:** Path to the credential storage file
-- **publicKeyPath:** Path to the public key used to encrypt credentials
-- **privateKeyPath:** Path to the private key used to decrypt credentials
-
-##### Storing Credentials
-
-```
-private void loadCredentials(String lookupKey Path credentialStorePath, Path publicKeyPath){
-  CredentialStore store = CredentialStore.loadOrCreate(credentialStorePath);
-
-  String username = getUsername();
-  char[] password = getPassword();
-  
-  store.addOrUpdateCredentials(lookupKey, username, password, publicKeyPath);
-}
-
-private String getUsername(){
-   //Read username from the user 
-}
-
-private char[] getPassword(){
-   //Read password from the user
-}
-```
-
-##### Accessing Credentials
-
-```
-private void loadCredentials(String lookupKey Path credentialStorePath, Path privateKeyPath){
-  CredentialStore store = CredentialStore.loadOrCreate(credentialStorePath);
-
-  store.accessCredentials(lookupKey, this::accessCredentials);
-}
-
-private void accessCredentials(String username, char[] password){
-  //Use credentials - it is recommended to NOT store them in non-local variables
-}
-```
+Usage information can be found in lockdown-core's [README](./lockdown-core/README.md)
 
 ### lockdown-cli
 [![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-cli)
 
 Lockdown CLI is a command line tool for creating keys and adding credentials to credential store files.
 
-#### Usage
-
-Download the Lockdown CLI capsule from the GitHub Releases page. Entering no arguments will display usage information
-
-```
-java -jar lockdown-cli-<version>-capsule.jar (generate|addkey) [options] arguments....
-```
-
-**Note:** When adding keys, the password will not be displayed as it is typed for security reasons (similar to behavior when logging in via ssh)
+Usage information can be found in lockdown-cli's [README](./lockdown-cli/README.md)
 
 ### lockdown-gradle-plugin
 [![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-gradle-plugin)
 
 The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams to easily expose the ability to add/update credentials in credential storage files without requiring all team members to install the Lockdown CLI.
 
-#### Usage
+Usage information can be found in lockdown-gradle-plugin's [README](./lockdown-gradle-plugin/README.md)
 
-Add the Lockdown Gradle plug-in to your buildscript classpath, and then use the AddCredentialsTask to allow developers to add encrypted values:
+## Handling Key Files
 
-
-```
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.1'
-    }
-}
-
-task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask){
-    publicKey "${projectDir}/id_rsa.pub"
-    credentialFile "${projectDir}/credentials.properties"
-}
-```
+Using public/private keys, there are two main things to keep in mind. Public keys are meant for encrypting data - they can be shared without significant risk to allow anyone to encrypt data the holder of the private key can understand. The private key is the "secret" in this pattern, and should be protected the same way a password would be
 
 ## Collaborators
 
