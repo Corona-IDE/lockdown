@@ -41,7 +41,31 @@ Lockdown Core is where the central key generation and encryption/decryption APIs
 
 - **lookupKey:** A unique label for a set of credentials in a store. Determined when credentials are added to the store
 - **credentialStorePath:** Path to the credential storage file
+- **publicKeyPath:** Path to the public key used to encrypt credentials
 - **privateKeyPath:** Path to the private key used to decrypt credentials
+
+##### Storing Credentials
+
+```
+private void loadCredentials(String lookupKey Path credentialStorePath, Path publicKeyPath){
+  CredentialStore store = CredentialStore.loadOrCreate(credentialStorePath);
+
+  String username = getUsername();
+  char[] password = getPassword();
+  
+  store.addOrUpdateCredentials(lookupKey, username, password, publicKeyPath);
+}
+
+private String getUsername(){
+   //Read username from the user 
+}
+
+private char[] getPassword(){
+   //Read password from the user
+}
+```
+
+##### Accessing Credentials
 
 ```
 private void loadCredentials(String lookupKey Path credentialStorePath, Path privateKeyPath){
