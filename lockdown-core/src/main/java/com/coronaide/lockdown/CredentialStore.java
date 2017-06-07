@@ -16,6 +16,7 @@ import java.nio.file.StandardOpenOption;
 import java.security.Security;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.BiConsumer;
 
@@ -28,6 +29,7 @@ import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,10 @@ public class CredentialStore {
 
     /** Logger reference to output information to the application log files */
     private static final Logger logger = LoggerFactory.getLogger(CredentialStore.class);
+
+    private static final String PKCS_1_PUBLIC_TYPE = "RSA PUBLIC KEY";
+
+    private static final String PKCS_1_PRIVATE_TYPE = "RSA PRIVATE KEY";
 
     private final Path credentialFile;
 
@@ -84,7 +90,7 @@ public class CredentialStore {
         Objects.requireNonNull(password);
         Objects.requireNonNull(publicKey);
 
-        byte[] publicKeyBytes = readAndDecodeKey(publicKey);
+        byte[] publicKeyBytes = readAndDecodeKey(publicKey, PKCS_1_PUBLIC_TYPE);
         String clearText = getCombinedCredentials(username, password);
         byte[] encryptedBytes = encrypt(clearText, publicKeyBytes);
 
@@ -167,7 +173,7 @@ public class CredentialStore {
             throw new IllegalArgumentException("No credentials stored with lookupKey " + lookupKey);
         }
 
-        byte[] privateKeyBytes = readAndDecodeKey(privateKey);
+        byte[] privateKeyBytes = readAndDecodeKey(privateKey, PKCS_1_PRIVATE_TYPE);
         byte[] encryptedBytes = Base64.decode(entryValue.getBytes());
         String clearText = decrypt(encryptedBytes, privateKeyBytes);
 
@@ -330,15 +336,26 @@ public class CredentialStore {
      *
      * @param keyFile
      *            Path representing the file on disk to read
+     * @param expectedType
+     *            The key type specified in the PEM header/footer
      * @return Byte array for encryption and decryption operations
      * @throws IOException
      *             If there is an error reading the key
      */
-    private byte[] readAndDecodeKey(Path keyFile) throws IOException {
+    private byte[] readAndDecodeKey(Path keyFile, String expectedType) throws IOException {
         Objects.requireNonNull(keyFile);
 
         try (PemReader pemReader = new PemReader(Files.newBufferedReader(keyFile))) {
-            return pemReader.readPemObject().getContent();
+            PemObject pemObject = Optional.ofNullable(pemReader.readPemObject())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Invalid key provided - Only PEM (PKCS1 format) is supported"));
+            if (!Objects.equals(expectedType, pemObject.getType())) {
+                throw new IllegalArgumentException(
+                        "Invalid key provided - Only PEM (PKCS1 format) is supported. (Found header: "
+                                + pemObject.getType() + ")");
+            }
+
+            return pemObject.getContent();
         }
     }
 }
