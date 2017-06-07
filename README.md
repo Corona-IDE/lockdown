@@ -54,6 +54,10 @@ The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams
 
 Usage information can be found in lockdown-gradle-plugin's [README](./lockdown-gradle-plugin/README.md)
 
+## Generating Keys
+
+Lockdown includes a key generator, which is mostly easily used via [lockdown-cli](./lockdown-cli/README.md). All generated keys are of PEM format. All keys used must start/end with BEGIN" and "END" blocks with the correct values for the encoding used
+
 ## Handling Key Files
 
 Using public/private keys, there are two main things to keep in mind. Public keys are meant for encrypting data - they can be shared without significant risk to allow anyone to encrypt data the holder of the private key can understand. The private key is the "secret" in this pattern, and should be protected the same way a password would be
