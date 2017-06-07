@@ -56,7 +56,7 @@ Usage information can be found in lockdown-gradle-plugin's [README](./lockdown-g
 
 ## Generating Keys
 
-Lockdown includes a key generator, which is mostly easily used via [lockdown-cli](./lockdown-cli/README.md). All generated keys are of PEM format. All keys used must start/end with BEGIN" and "END" blocks with the correct values for the encoding used
+Lockdown includes a key generator, which is mostly easily used via [lockdown-cli](./lockdown-cli/README.md). All generated keys are of PEM format (PKCS#1), which is currently the only format accepted by the library.
 
 ## Handling Key Files
 
