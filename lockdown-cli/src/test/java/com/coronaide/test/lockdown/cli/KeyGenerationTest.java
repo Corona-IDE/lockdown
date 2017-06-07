@@ -47,7 +47,7 @@ public class KeyGenerationTest {
         Assert.assertFalse(privateKey.toFile().exists());
     }
 
-    @Test(expectedExceptions = NullPointerException.class, groups = "KEY_GENERATION_TEST")
+    @Test(expectedExceptions = IllegalArgumentException.class, groups = "KEY_GENERATION_TEST")
     public void generateKeysExistNoForce() throws Exception {
         Path outputDirectory = Files.createTempDirectory("lockdown.cli.test");
         outputDirectory.toFile().deleteOnExit();

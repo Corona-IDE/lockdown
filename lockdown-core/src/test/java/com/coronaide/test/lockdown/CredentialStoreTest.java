@@ -32,6 +32,8 @@ public class CredentialStoreTest {
 
     private static final Path TEST_KEY_2_PRIVATE = TEST_KEY_DIRECTORY.resolve("test_rsa_2");
 
+    private static final Path INVALID_KEY = TEST_KEY_DIRECTORY.resolve("invalid.pub");
+
     private Path publicKey1;
 
     private Path privateKey1;
@@ -39,6 +41,8 @@ public class CredentialStoreTest {
     private Path publicKey2;
 
     private Path privateKey2;
+
+    private Path invalidKey;
 
     @BeforeClass
     public void createKeys() throws Exception {
@@ -49,6 +53,7 @@ public class CredentialStoreTest {
         privateKey1 = tempDirectory.resolve("test1_rsa");
         publicKey2 = tempDirectory.resolve("test2_rsa.pub");
         privateKey2 = tempDirectory.resolve("test2_rsa");
+        invalidKey = tempDirectory.resolve("invalidKey.pub");
 
         // Copy from resource directory to temporary location where files are usable (resources may be within a jar
         // during run)
@@ -68,10 +73,15 @@ public class CredentialStoreTest {
             Files.copy(in, privateKey2);
         }
 
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(INVALID_KEY.toString())) {
+            Files.copy(in, invalidKey);
+        }
+
         publicKey1.toFile().deleteOnExit();
         privateKey1.toFile().deleteOnExit();
         publicKey2.toFile().deleteOnExit();
         privateKey2.toFile().deleteOnExit();
+        invalidKey.toFile().deleteOnExit();
     }
 
     @Test(expectedExceptions = NullPointerException.class)
@@ -149,6 +159,20 @@ public class CredentialStoreTest {
 
         CredentialStore store = CredentialStore.loadOrCreate(targetFile);
         store.addOrUpdateCredentials("KEY1", "user1", "pass1".toCharArray(), null);
+    }
+
+    @Test(expectedExceptions = { IllegalArgumentException.class })
+    public void addOrUpdateCredentialsInvalidKey() throws Exception {
+        Path targetFile = Files.createTempFile("cred", "store");
+        targetFile.toFile().deleteOnExit();
+
+        CredentialStore store = CredentialStore.loadOrCreate(targetFile);
+
+        Assert.assertNotNull(store);
+        Assert.assertTrue(targetFile.toFile().exists());
+
+        // Setup a valid key to test against
+        store.addOrUpdateCredentials("KEY1", "user1", "pass1".toCharArray(), invalidKey);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
@@ -253,7 +277,7 @@ public class CredentialStoreTest {
     }
 
     @Test(expectedExceptions = { CryptoException.class, RuntimeCryptoException.class })
-    public void accessCredentialsInvalidKey() throws Exception {
+    public void accessCredentialsWrongKey() throws Exception {
         Path targetFile = Files.createTempFile("cred", "store");
         targetFile.toFile().deleteOnExit();
 

@@ -58,6 +58,8 @@ Usage information can be found in lockdown-gradle-plugin's [README](./lockdown-g
 
 Lockdown includes a key generator, which is mostly easily used via [lockdown-cli](./lockdown-cli/README.md). All generated keys are of PEM format (PKCS#1), which is currently the only format accepted by the library.
 
+[See more information on PEM keys/formats](https://tls.mbed.org/kb/cryptography/asn1-key-structures-in-der-and-pem)
+
 ## Handling Key Files
 
 Using public/private keys, there are two main things to keep in mind. Public keys are meant for encrypting data - they can be shared without significant risk to allow anyone to encrypt data the holder of the private key can understand. The private key is the "secret" in this pattern, and should be protected the same way a password would be
