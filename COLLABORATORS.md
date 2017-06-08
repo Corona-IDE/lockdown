@@ -5,7 +5,7 @@
 * Run a full build, which will include the key generation tests not run during continuous integration, via `./gradlew clean build`
 * Update the version number to remove the "-SNAPSHOT" designation. All version numbers should be a fully-qualified semantic version of form `<major>.<minor>.<micro>`
 * Change the header "Unreleased" in CHANGE_LOG.md to the target release number, and create a new "Unreleased" header above it
-* Update the version number in the lockdown-gradle-plugin example in the README.md file
+* Update the version number in the lockdown-gradle-plugin example in ./lockdock-gradle-plugin/README.md
 * Commit the version number, README, and CHANGE_LOG updates
 * Tag the git repository with the fully-qualified semantic version number
 * Generate the lockdown-CLI capsule via `./gradlew distCapsule`
