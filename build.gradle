@@ -27,8 +27,8 @@ if (project.hasProperty('sonarLogin')) {
 sonarqube {
     properties {
         property 'sonar.projectName', 'Lockdown'
-        property 'sonar.projectKey', 'com.coronaide:lockdown'
-        property 'sonar.organization', 'corona-ide'
+        property 'sonar.projectKey', 'org.starchartlabs.lockdown:lockdown'
+        property 'sonar.organization', 'starchart-labs'
         property 'sonar.junit.reportsPath', file("${buildDir}/test-results/test")
         property 'sonar.core.codeCoveragePlugin', 'jacoco'
         property 'sonar.jacoco.reportPaths', "${buildDir}/jacoco/test.exec"
@@ -50,11 +50,11 @@ allprojects{
     dependencyRecommendations {
         dependencyLock file: file("${rootDir}/dependencies.lock")
     }
-    
+
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
     version = "${lockdownVersion}"
     group = 'com.coronaide.lockdown'
-    
+
     sourceCompatibility = "${javaVersion}"
 
     //Always download sources, to allow debugging, and use Eclipse containers for greater portability
@@ -64,14 +64,14 @@ allprojects{
             containers = [ 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8' ]
         }
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     //Task which will show what the dependency set of the project is in a tree form
     task dependencyReport(type: DependencyReportTask) {}
-    
+
     //Task which will show what is introducing a particular dependency
     task dependencyInsightReport(type: DependencyInsightReportTask) {}
 
@@ -82,38 +82,38 @@ subprojects{
     apply plugin: 'com.jfrog.bintray'
     apply plugin: 'nebula.maven-base-publish'
     apply plugin: 'nebula.maven-dependencies'
-    
+
     //Add LICENSE so it is included in all JARs, fulfilling the "distributions include license" requirement
     jar{
         from("${rootDir}"){
             include 'LICENSE'
         }
     }
-    
+
     //All projects should provide source code and javadoc, and upload these with any released artifacts
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         from sourceSets.main.allSource
-        
+
         from("${rootDir}"){
             include 'LICENSE'
         }
     }
-    
+
     task javadocJar(type: Jar, dependsOn: javadoc) {
         classifier = 'javadoc'
         from javadoc.destinationDir
-        
+
         from("${rootDir}"){
             include 'LICENSE'
         }
     }
-    
+
     artifacts {
         archives sourcesJar
         archives javadocJar
     }
-    
+
     //Setup default test behavior, including failure logging
     test {
         testLogging {
@@ -122,19 +122,19 @@ subprojects{
             quiet {
                 events 'failed'
             }
-            
+
             info {
                 events 'skipped', 'failed', 'passed'
             }
-            
+
             debug {
                 events 'started', 'standard_out', 'standard_error', 'skipped', 'failed', 'passed'
             }
         }
-        
+
         useTestNG() {
             useDefaultListeners = true
-            
+
             //For CI builds on low-power machines, we need to ability to skip computation-intensive tests
             if(project.hasProperty('skipKeyGenerationTests')){
                 logger.warn('Skipping long-running key generation tests');
@@ -142,22 +142,22 @@ subprojects{
             }
         }
     }
-    
+
     artifacts {
         archives sourcesJar
         archives javadocJar
     }
-    
+
     sonarqube {
         properties {
-            property 'sonar.projectKey', "com.coronaide:lockdown:${project.name}"
+            property 'sonar.projectKey', "org.starchartlabs.lockdown:lockdown:${project.name}"
             property 'sonar.junit.reportsPath', file("${buildDir}/test-results/test")
             property 'sonar.core.codeCoveragePlugin', 'jacoco'
             property 'sonar.jacoco.reportPaths', "${buildDir}/jacoco/test.exec"
             properties['sonar.sources'] = sourceSets.main.java.srcDirs.findAll { it.exists() && !it.path.contains('resources') } ?: []
         }
     }
-    
+
     publishing {
         publications {
             nebula(MavenPublication) {
@@ -174,21 +174,21 @@ subprojects{
                             it.groupId[0].text() == dep.moduleGroup
                         }?.scope[0]?.value = 'compile'
                     }
-                    
+
                     asNode().appendNode('url', 'https://github.com/Corona-IDE/lockdown')
-                    Node licenseNode = asNode().appendNode('licenses').appendNode('license') 
-                    
+                    Node licenseNode = asNode().appendNode('licenses').appendNode('license')
+
                     licenseNode.appendNode('name', 'The MIT License')
                     licenseNode.appendNode('url', 'https://opensource.org/licenses/MIT')
                     licenseNode.appendNode('distribution', 'repo')
-                    
+
                     Node scmNode = asNode().appendNode('scm')
-                    scmNode.appendNode('connection', 'scm:git:git://github.com/Corona-IDE/lockdown.git')
-                    scmNode.appendNode('developerConnection', 'scm:git:ssh://github.com/Corona-IDE/lockdown.git')
-                    scmNode.appendNode('url', 'https://github.com/Corona-IDE/lockdown')
-                    
+                    scmNode.appendNode('connection', 'scm:git:git://github.com/StarChart-Labs/lockdown.git')
+                    scmNode.appendNode('developerConnection', 'scm:git:ssh://github.com/StarChart-Labs/lockdown.git')
+                    scmNode.appendNode('url', 'https://github.com/StarChart-Labs/lockdown')
+
                     Node developerNode = asNode().appendNode('developers').appendNode('developer')
-                    
+
                     developerNode.appendNode('id', 'romeara')
                     developerNode.appendNode('name', 'Ryan OMeara')
                     developerNode.appendNode('url', 'https://github.com/romeara')
@@ -196,29 +196,29 @@ subprojects{
             }
         }
     }
-    
+
     bintray {
         user = System.getProperty('bintray_user')
         key = System.getProperty('bintray_key')
         publications = [ 'nebula' ]
-        
+
         if(!project.hasProperty('remoteDeploy')){
             dryRun = true
         }
-        
+
         pkg {
             repo = 'lockdown'
             name = "${project.name}"
             userOrg = 'corona-ide'
             licenses = ['MIT']
-            vcsUrl = 'https://github.com/Corona-IDE/lockdown'
-            
+            vcsUrl = 'https://github.com/StarChart-Labs/lockdown'
+
             version {
                 name = "${lockdownVersion}"
                 desc = "${project.name} release ${lockdownVersion} final"
                 released  = new Date()
                 vcsTag = "${lockdownVersion}"
-                
+
                 gpg {
                     sign = true
                 }
@@ -246,7 +246,7 @@ task codeCoverageReport(type: JacocoReport) {
 codeCoverageReport.dependsOn {
     subprojects*.test
 }
-    
+
 task wrapper(type: Wrapper) {
     gradleVersion = "${gradleVersion}"
 }
