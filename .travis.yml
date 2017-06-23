@@ -12,7 +12,6 @@ before_install:
   
 script:
   - ./gradlew check -PskipKeyGenerationTests
-  - ./gradlew codeCoverageReport
   - ./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN
 
 after_success:
