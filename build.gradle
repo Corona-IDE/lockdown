@@ -38,6 +38,7 @@ allprojects{
     apply plugin: 'jacoco'
     apply plugin: 'nebula.dependency-recommender'
     apply plugin: 'nebula.maven-resolved-dependencies'
+    apply plugin: 'org.starchartlabs.flare.dependency-insight'
 
     dependencyRecommendations {
         dependencyLock file: file("${rootDir}/dependencies.lock")
@@ -61,12 +62,6 @@ allprojects{
         mavenCentral()
     }
 
-    //Task which will show what the dependency set of the project is in a tree form
-    task dependencyReport(type: DependencyReportTask) {}
-
-    //Task which will show what is introducing a particular dependency
-    task dependencyInsightReport(type: DependencyInsightReportTask) {}
-
 }
 
 subprojects{
@@ -74,6 +69,7 @@ subprojects{
     apply plugin: 'com.jfrog.bintray'
     apply plugin: 'nebula.maven-base-publish'
     apply plugin: 'nebula.maven-dependencies'
+    apply plugin: 'org.starchartlabs.flare.increase-test-logging'
 
     //Add LICENSE so it is included in all JARs, fulfilling the "distributions include license" requirement
     jar{
@@ -108,22 +104,6 @@ subprojects{
 
     //Setup default test behavior, including failure logging
     test {
-        testLogging {
-            exceptionFormat 'full'
-
-            quiet {
-                events 'failed'
-            }
-
-            info {
-                events 'skipped', 'failed', 'passed'
-            }
-
-            debug {
-                events 'started', 'standard_out', 'standard_error', 'skipped', 'failed', 'passed'
-            }
-        }
-
         useTestNG() {
             useDefaultListeners = true
 
