@@ -45,7 +45,6 @@ allprojects{
     }
 
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
-    version = "${lockdownVersion}"
     group = 'com.coronaide.lockdown'
 
     sourceCompatibility = "${javaVersion}"
@@ -186,10 +185,10 @@ subprojects{
             vcsUrl = 'https://github.com/StarChart-Labs/lockdown'
 
             version {
-                name = "${lockdownVersion}"
-                desc = "${project.name} release ${lockdownVersion} final"
+                name = "${project.version}"
+                desc = "${project.name} release ${project.version} final"
                 released  = new Date()
-                vcsTag = "${lockdownVersion}"
+                vcsTag = "${project.version}"
 
                 gpg {
                     sign = true
