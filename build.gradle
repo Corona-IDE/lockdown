@@ -7,6 +7,7 @@ buildscript {
         classpath group: 'com.netflix.nebula', name: 'nebula-publishing-plugin', version: '4.2.0'
         classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version: '1.7.3'
         classpath group: 'org.starchartlabs.flare', name: 'flare-operations-plugins', version: '0.1.0'
+        classpath group: 'org.starchartlabs.flare', name: 'flare-publishing-plugins', version: '0.1.0'
     }
 }
 
@@ -38,7 +39,6 @@ allprojects{
     apply plugin: 'jacoco'
     apply plugin: 'nebula.dependency-recommender'
     apply plugin: 'nebula.maven-resolved-dependencies'
-    apply plugin: 'org.starchartlabs.flare.dependency-insight'
 
     dependencyRecommendations {
         dependencyLock file: file("${rootDir}/dependencies.lock")
@@ -60,7 +60,6 @@ allprojects{
     repositories {
         mavenCentral()
     }
-
 }
 
 subprojects{
@@ -69,6 +68,7 @@ subprojects{
     apply plugin: 'nebula.maven-base-publish'
     apply plugin: 'nebula.maven-dependencies'
     apply plugin: 'org.starchartlabs.flare.increase-test-logging'
+    apply plugin: 'org.starchartlabs.flare.published-project'
 
     //Add LICENSE so it is included in all JARs, fulfilling the "distributions include license" requirement
     jar{
@@ -78,27 +78,16 @@ subprojects{
     }
 
     //All projects should provide source code and javadoc, and upload these with any released artifacts
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-
+    sourcesJar {
         from("${rootDir}"){
             include 'LICENSE'
         }
     }
 
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-
+    javadocJar{
         from("${rootDir}"){
             include 'LICENSE'
         }
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
     }
 
     //Setup default test behavior, including failure logging
@@ -114,11 +103,6 @@ subprojects{
         }
     }
 
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
-    }
-
     sonarqube {
         properties {
             property 'sonar.projectKey', "org.starchartlabs.lockdown:lockdown:${project.name}"
@@ -128,45 +112,31 @@ subprojects{
             properties['sonar.sources'] = sourceSets.main.java.srcDirs.findAll { it.exists() && !it.path.contains('resources') } ?: []
         }
     }
-
-    publishing {
-        publications {
-            nebula(MavenPublication) {
-                artifact sourcesJar {
-                    classifier 'sources'
-                }
-                artifact javadocJar {
-                    classifier 'javadoc'
-                }
-                pom.withXml {
-                    configurations.compile.resolvedConfiguration.firstLevelModuleDependencies.each { dep ->
-                        asNode().dependencies[0].dependency.find {
-                            it.artifactId[0].text() == dep.moduleName &&
-                            it.groupId[0].text() == dep.moduleGroup
-                        }?.scope[0]?.value = 'compile'
-                    }
-
-                    asNode().appendNode('url', 'https://github.com/Corona-IDE/lockdown')
-                    Node licenseNode = asNode().appendNode('licenses').appendNode('license')
-
-                    licenseNode.appendNode('name', 'The MIT License')
-                    licenseNode.appendNode('url', 'https://opensource.org/licenses/MIT')
-                    licenseNode.appendNode('distribution', 'repo')
-
-                    Node scmNode = asNode().appendNode('scm')
-                    scmNode.appendNode('connection', 'scm:git:git://github.com/StarChart-Labs/lockdown.git')
-                    scmNode.appendNode('developerConnection', 'scm:git:ssh://github.com/StarChart-Labs/lockdown.git')
-                    scmNode.appendNode('url', 'https://github.com/StarChart-Labs/lockdown')
-
-                    Node developerNode = asNode().appendNode('developers').appendNode('developer')
-
-                    developerNode.appendNode('id', 'romeara')
-                    developerNode.appendNode('name', 'Ryan OMeara')
-                    developerNode.appendNode('url', 'https://github.com/romeara')
-                }
+    
+    //If not a remote run, publish to local only
+    if(!project.hasProperty('remoteDeploy')){
+        publishing {
+            repositories {
+                mavenLocal()
             }
         }
     }
+    
+    publishedInfo{
+        url = 'https://github.com/Corona-IDE/lockdown'
+      
+        scm{
+          github 'StarChart-Labs', 'lockdown'
+        }
+      
+        licenses{
+          mit('repo')
+        }
+      
+        developers{
+          github 'romeara', 'Ryan OMeara'
+        }
+      }
 
     bintray {
         user = System.getProperty('bintray_user')
