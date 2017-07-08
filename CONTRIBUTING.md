@@ -15,13 +15,7 @@ We welcome any contributions! If you wish to contribute:
 
 ## Development Environment Setup
 
-Currently, Eclipse is the supported IDE for development of Lockdown. It is recommended to create an isolated workspace for Corona IDE projects. You should also import the standard Corona IDE formatting and save settings from eclipseConfiguration:
-
-- `Java > CodeStyle > Cleanup` is imported from cleanup.xml
-- `Java > CodeStyle > Formatter` is imported from codeformatter.xml
-- `Java > CodeStyle > Code Templates` is imported from codetemplates.xml
-
-It is also recommended to turn on "save actions", under the Java Editor settings, to format saved lines and perform other cleanup operations
+Currently, Eclipse is the supported IDE for development of Lockdown. It is recommended to create an isolated workspace for StarChart Labs projects. You should also import the standard StarChart Labs formatting and save settings from the [eclipse-configuration repository](https://github.com/StarChart-Labs/eclipse-configuration)
 
 ## General Standards
 
