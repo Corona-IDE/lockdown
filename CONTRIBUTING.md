@@ -11,7 +11,7 @@ We welcome any contributions! If you wish to contribute:
 - Make changes
 - Run `./gradlew clean build` to test your changes locally
 - Push your branch to your Fork
-- Make a Pull Request
+- Make a Pull Request against the `master` branch
 
 ## Development Environment Setup
 
