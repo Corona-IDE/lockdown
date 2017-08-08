@@ -83,8 +83,8 @@ public class AddCredentialsCommand implements Runnable {
      * Represents an abstraction of the input mechanism for getting credentials to add during the command's run
      *
      * <p>
-     * Tries to use System.console(), as is provides a more secure password entry mechanism. Falls back to Scanner if
-     * the console is unavailable
+     * Tries to use System.console(), as is provides a more secure password entry mechanism. Falls back to Scanner with
+     * an erasing thread if the console is unavailable
      *
      * @author romeara
      * @since 0.1.0
@@ -107,11 +107,20 @@ public class AddCredentialsCommand implements Runnable {
                     .orElseGet(() -> readFromScanner(prompt));
         }
 
-        public char[] readPassword(String prompt) {
+        public char[] readPassword(String prompt) throws IOException {
             Objects.requireNonNull(prompt);
 
-            return console.map(c -> c.readPassword(prompt))
-                    .orElseGet(() -> readFromScanner(prompt).toCharArray());
+            char[] result = null;
+
+            if (console.isPresent()) {
+                result = console.map(c -> c.readPassword(prompt)).orElse(null);
+            } else {
+                try (ConsoleEraser eraser = new ConsoleEraser()) {
+                    result = readFromScanner(prompt).toCharArray();
+                }
+            }
+
+            return result;
         }
 
         private String readFromScanner(String prompt) {
@@ -127,6 +136,40 @@ public class AddCredentialsCommand implements Runnable {
         @Override
         public void close() throws IOException {
             scanner.close();
+        }
+
+    }
+
+    /**
+     * Thread used in conjunction with Scanner for entering passwords without printing back to the console
+     *
+     * @author romeara
+     * @since 0.1.2
+     */
+    private static class ConsoleEraser extends Thread implements Closeable {
+
+        private boolean running = true;
+
+        public ConsoleEraser() {
+            start();
+        }
+
+        @Override
+        public void run() {
+            while (running) {
+                System.out.print("\b ");
+
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public synchronized void close() throws IOException {
+            running = false;
         }
     }
 
