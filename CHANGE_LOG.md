@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.2]
 - Made invalid key error message clearer about requirement of PKCS1
 - Allow password entry in CLI to be hidden when Console is unavailable
 

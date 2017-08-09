@@ -15,7 +15,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.1'
+        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.2'
     }
 }
 
