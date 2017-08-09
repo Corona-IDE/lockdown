@@ -41,7 +41,7 @@ allprojects{
     apply plugin: 'nebula.maven-resolved-dependencies'
 
     dependencyRecommendations {
-        dependencyLock file: file("${rootDir}/dependencies.lock")
+        propertiesFile file: file("${rootDir}/dependencies.properties")
     }
 
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
