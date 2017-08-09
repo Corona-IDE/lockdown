@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 - Made invalid key error message clearer about requirement of PKCS1
+- Allow password entry in CLI to be hidden when Console is unavailable
 
 ## [0.1.1]
 - Added required meta-data toPOM for Maven Central
