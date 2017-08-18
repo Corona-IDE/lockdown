@@ -45,7 +45,7 @@ allprojects{
     }
 
     //Default all projects to a synchronized IDE version number. Certain projects, such as the API project, will override this value
-    group = 'com.coronaide.lockdown'
+    group = 'org.starchartlabs.lockdown'
 
     sourceCompatibility = "${javaVersion}"
 
@@ -123,7 +123,7 @@ subprojects{
     }
     
     publishedInfo{
-        url = 'https://github.com/Corona-IDE/lockdown'
+        url = 'https://github.com/StarChart-Labs/lockdown'
       
         scm{
           github 'StarChart-Labs', 'lockdown'
@@ -150,7 +150,7 @@ subprojects{
         pkg {
             repo = 'lockdown'
             name = "${project.name}"
-            userOrg = 'corona-ide'
+            userOrg = 'starchart-labs'
             licenses = ['MIT']
             vcsUrl = 'https://github.com/StarChart-Labs/lockdown'
 
