@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown.gradle
+package org.starchartlabs.lockdown.gradle
 
 import groovy.swing.SwingBuilder
 
@@ -12,10 +12,8 @@ import groovy.swing.SwingBuilder
  * Prompt mechanism which collects credentials from a user
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.gradle.CredentialPrompt} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class CredentialPrompt {
 
     private String username

@@ -4,25 +4,22 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown.gradle.task
+package org.starchartlabs.lockdown.gradle.task
 
 import java.nio.file.Paths
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
-
-import com.coronaide.lockdown.CredentialStore
-import com.coronaide.lockdown.gradle.CredentialPrompt
+import org.starchartlabs.lockdown.CredentialStore
+import org.starchartlabs.lockdown.gradle.CredentialPrompt
 
 /**
  * Gradle task which allows users to add/update credentials without downloading the CLI separately
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.gradle.CredentialPrompt} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class AddCredentialsTask extends DefaultTask {
 
     private String publicKey

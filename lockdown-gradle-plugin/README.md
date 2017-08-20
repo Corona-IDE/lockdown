@@ -19,7 +19,7 @@ buildscript {
     }
 }
 
-task addCredentials(type: com.coronaide.lockdown.gradle.task.AddCredentialsTask){
+task addCredentials(type: org.starchartlabs.lockdown.gradle.task.AddCredentialsTask){
     publicKey "${projectDir}/id_rsa.pub"
     credentialFile "${projectDir}/credentials.properties"
 }
