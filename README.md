@@ -31,6 +31,10 @@ The requirement for a copy of the license being included in distributions is ful
 
 If you discover a security vulnerability, contact the development team by e-mail at corona.ide.dev@gmail.com
 
+## Migrating Between Major Versions
+
+Details for migrating across major versions of Lockdown may be found in [MIGRATION.md](/.MIGRATION.md)
+
 ## Projects
 
 ### lockdown-core
