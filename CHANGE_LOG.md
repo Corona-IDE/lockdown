@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.0]
 - Change group ID to org.starchartlabs.lockdown
 - Create APIs in new group ID package structure
 - Deprecate APIs in old package naming structure

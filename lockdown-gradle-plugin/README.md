@@ -12,10 +12,10 @@ Add the Lockdown Gradle plug-in to your buildscript classpath, and then use the 
 ```
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath group: 'com.coronaide.lockdown', name: 'lockdown-gradle-plugin', version: '0.1.2'
+        classpath group: 'org.starchart.lockdown', name: 'lockdown-gradle-plugin', version: '1.0.0'
     }
 }
 
