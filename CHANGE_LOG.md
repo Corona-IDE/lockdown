@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Change group ID to org.starchartlabs.lockdown
+- Create APIs in new group ID package structure
+- Deprecate APIs in old package naming structure
 
 ## [0.1.2]
 - Made invalid key error message clearer about requirement of PKCS1
