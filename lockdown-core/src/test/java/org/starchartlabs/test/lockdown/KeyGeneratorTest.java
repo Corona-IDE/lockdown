@@ -4,21 +4,20 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.test.lockdown;
+package org.starchartlabs.test.lockdown;
 
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.starchartlabs.lockdown.KeyGenerator;
+import org.starchartlabs.lockdown.model.KeyFiles;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.coronaide.lockdown.KeyGenerator;
-import com.coronaide.lockdown.model.KeyFiles;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
-@SuppressWarnings("deprecation")
 public class KeyGeneratorTest {
 
     private final KeyGenerator keyGenerator = new KeyGenerator();

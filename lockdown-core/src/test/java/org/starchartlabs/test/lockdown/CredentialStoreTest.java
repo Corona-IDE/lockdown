@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.test.lockdown;
+package org.starchartlabs.test.lockdown;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -14,13 +14,11 @@ import java.nio.file.Paths;
 
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.RuntimeCryptoException;
+import org.starchartlabs.lockdown.CredentialStore;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.coronaide.lockdown.CredentialStore;
-
-@SuppressWarnings("deprecation")
 public class CredentialStoreTest {
 
     private static final Path TEST_KEY_DIRECTORY = Paths.get("org/starchartlabs/test/lockdown/core/keys");

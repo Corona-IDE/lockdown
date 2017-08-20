@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown;
+package org.starchartlabs.lockdown;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,10 +39,8 @@ import org.slf4j.LoggerFactory;
  * on stored credentials and access them from within an application which needs access to the stored data
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.CredentialStore} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class CredentialStore {
 
     /** Logger reference to output information to the application log files */

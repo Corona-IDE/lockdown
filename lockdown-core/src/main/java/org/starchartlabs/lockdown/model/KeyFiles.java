@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown.model;
+package org.starchartlabs.lockdown.model;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -15,10 +15,8 @@ import javax.annotation.Nullable;
  * Represents the results of a key generation operation, with locations for the public and private key files
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.model.KeyFiles} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class KeyFiles {
 
     private final Path publicKeyFile;

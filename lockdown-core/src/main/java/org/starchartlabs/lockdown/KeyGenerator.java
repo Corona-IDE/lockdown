@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown;
+package org.starchartlabs.lockdown;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -22,17 +22,14 @@ import java.util.Objects;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemWriter;
-
-import com.coronaide.lockdown.model.KeyFiles;
+import org.starchartlabs.lockdown.model.KeyFiles;
 
 /**
  * Represents facilities to create key pairs for use in encryption and decryption of credential data
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.KeyGenerator} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class KeyGenerator {
 
     /**

@@ -4,17 +4,15 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.test.lockdown.model;
+package org.starchartlabs.test.lockdown.model;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.starchartlabs.lockdown.model.KeyFiles;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.coronaide.lockdown.model.KeyFiles;
-
-@SuppressWarnings("deprecation")
 public class KeyFilesTest {
 
     private static final Path PUBLIC_KEY_FILE = Paths.get("public");
