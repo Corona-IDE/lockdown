@@ -27,7 +27,7 @@ public class AddCredentialsTest {
     /** Logger reference to output information to the application log files */
     private static final Logger logger = LoggerFactory.getLogger(AddCredentialsTest.class);
 
-    private static final Path TEST_KEY_DIRECTORY = Paths.get("com/coronaide/test/lockdown/cli/keys");
+    private static final Path TEST_KEY_DIRECTORY = Paths.get("org/starchartlabs/test/lockdown/cli/keys");
 
     private static final Path TEST_KEY_1_PUBLIC = TEST_KEY_DIRECTORY.resolve("test_rsa_1.pub");
 
