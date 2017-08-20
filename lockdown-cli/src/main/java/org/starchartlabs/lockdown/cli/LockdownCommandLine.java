@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.lockdown.cli;
+package org.starchartlabs.lockdown.cli;
 
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -20,18 +20,15 @@ import org.kohsuke.args4j.spi.SubCommandHandler;
 import org.kohsuke.args4j.spi.SubCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.coronaide.lockdown.cli.command.AddCredentialsCommand;
-import com.coronaide.lockdown.cli.command.KeyGeneratorCommand;
+import org.starchartlabs.lockdown.cli.command.AddCredentialsCommand;
+import org.starchartlabs.lockdown.cli.command.KeyGeneratorCommand;
 
 /**
  * Command line application which allows generation of public/private key pairs
  *
  * @author romeara
- * @since 0.1.0
- * @deprecated Since 1.0.0 - Use {@link org.starchartlabs.lockdown.cli.LockdownCommandLine} instead
+ * @since 1.0.0
  */
-@Deprecated
 public class LockdownCommandLine {
 
     /** Logger reference to output information to the application log files */

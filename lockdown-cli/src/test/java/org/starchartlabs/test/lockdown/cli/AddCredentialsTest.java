@@ -4,7 +4,7 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.test.lockdown.cli;
+package org.starchartlabs.test.lockdown.cli;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -14,20 +14,18 @@ import java.nio.file.Paths;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.starchartlabs.lockdown.CredentialStore;
+import org.starchartlabs.lockdown.cli.LockdownCommandLine;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.coronaide.lockdown.CredentialStore;
-import com.coronaide.lockdown.cli.LockdownCommandLine;
-
-@SuppressWarnings("deprecation")
 public class AddCredentialsTest {
 
     /** Logger reference to output information to the application log files */
     private static final Logger logger = LoggerFactory.getLogger(AddCredentialsTest.class);
 
-    private static final Path TEST_KEY_DIRECTORY = Paths.get("com/coronaide/test/lockdown/cli/keys");
+    private static final Path TEST_KEY_DIRECTORY = Paths.get("org/starchartlabs/test/lockdown/cli/keys");
 
     private static final Path TEST_KEY_1_PUBLIC = TEST_KEY_DIRECTORY.resolve("test_rsa_1.pub");
 

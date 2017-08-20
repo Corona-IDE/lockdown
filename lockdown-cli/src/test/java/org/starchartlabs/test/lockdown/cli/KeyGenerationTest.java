@@ -4,20 +4,18 @@
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  */
-package com.coronaide.test.lockdown.cli;
+package org.starchartlabs.test.lockdown.cli;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.starchartlabs.lockdown.CredentialStore;
+import org.starchartlabs.lockdown.cli.LockdownCommandLine;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.coronaide.lockdown.CredentialStore;
-import com.coronaide.lockdown.cli.LockdownCommandLine;
-
-@SuppressWarnings("deprecation")
 public class KeyGenerationTest {
 
     private static final String GENERATE_CMD = "generate";

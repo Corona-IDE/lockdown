@@ -16,7 +16,7 @@ dependencies {
 }
 
 task distCapsule(type: FatCapsule) {
-    applicationClass 'com.coronaide.lockdown.cli.LockdownCommandLine'
+    applicationClass 'org.starchartlabs.lockdown.cli.LockdownCommandLine'
 }
 
 artifacts {
