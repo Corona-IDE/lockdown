@@ -6,3 +6,6 @@ Guide to migrating across major version (not guaranteed to be backwards-compatib
 
 - Update package names from "com.coronaide.*" to "org.starchartlabs.*"
  - API package names were changed in v1.0.0 from "com.coronaide.*" to "org.starchartlabs.*". Classes and APIs are compatible aside from package names
+ 
+## 1.x.x to 2.x.x
+- Update from com.coronaide.* classes/APIs deprecated in 1.0.0
