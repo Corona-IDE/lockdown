@@ -1,5 +1,5 @@
 # lockdown-cli
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-cli)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-cli)
 
 Lockdown CLI is a command line tool for creating keys and adding credentials to credential store files.
 

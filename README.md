@@ -38,21 +38,21 @@ Details for migrating across major versions of Lockdown may be found in [MIGRATI
 ## Projects
 
 ### lockdown-core
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-core)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-core)
 
 Lockdown Core is where the central key generation and encryption/decryption APIs are defined. This library is intended for use within applications consuming lockdown, and allows access to credential storage files.
 
 Usage information can be found in lockdown-core's [README](./lockdown-core/README.md)
 
 ### lockdown-cli
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-cli)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-cli.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-cli)
 
 Lockdown CLI is a command line tool for creating keys and adding credentials to credential store files.
 
 Usage information can be found in lockdown-cli's [README](./lockdown-cli/README.md)
 
 ### lockdown-gradle-plugin
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-gradle-plugin)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-gradle-plugin)
 
 The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams to easily expose the ability to add/update credentials in credential storage files without requiring all team members to install the Lockdown CLI.
 

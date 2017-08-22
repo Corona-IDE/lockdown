@@ -1,5 +1,5 @@
 # lockdown-core
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-core)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-core.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-core)
 
 Lockdown Core is where the central key generation and encryption/decryption APIs are defined. This library is intended for use within applications consuming lockdown, and allows access to credential storage files.
 

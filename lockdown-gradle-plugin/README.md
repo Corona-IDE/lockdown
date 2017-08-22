@@ -1,5 +1,5 @@
 # lockdown-gradle-plugin
-[![Maven Central](https://img.shields.io/maven-central/v/com.coronaide.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/com.coronaide.lockdown/lockdown-gradle-plugin)
+[![Maven Central](https://img.shields.io/maven-central/v/org.starchartlabs.lockdown/lockdown-gradle-plugin.svg)](https://mvnrepository.com/artifact/org.starchartlabs.lockdown/lockdown-gradle-plugin)
 
 The Lockdown Gradle plug-in is intended for use in Gradle builds, to allow teams to easily expose the ability to add/update credentials in credential storage files without requiring all team members to install the Lockdown CLI.
 
