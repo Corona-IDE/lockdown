@@ -2,7 +2,7 @@
  * Copyright (C) 2017 The Corona-IDE@github.com Authors
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 package org.starchartlabs.lockdown.cli;
 
@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.starchartlabs.lockdown.cli.command.AddCredentialsCommand;
 import org.starchartlabs.lockdown.cli.command.KeyGeneratorCommand;
+import org.starchartlabs.lockdown.cli.command.ListLookupKeysCommand;
 
 /**
  * Command line application which allows generation of public/private key pairs
@@ -36,8 +37,9 @@ public class LockdownCommandLine {
 
     @Argument(handler = SubCommandHandler.class)
     @SubCommands({
-        @SubCommand(name = "generate", impl = KeyGeneratorCommand.class),
-        @SubCommand(name = "addkey", impl = AddCredentialsCommand.class)
+            @SubCommand(name = "generate", impl = KeyGeneratorCommand.class),
+            @SubCommand(name = "addkey", impl = AddCredentialsCommand.class),
+            @SubCommand(name = "list", impl = ListLookupKeysCommand.class)
     })
     private Runnable command;
 
@@ -89,7 +91,7 @@ public class LockdownCommandLine {
 
         StringWriter usageWriter = new StringWriter();
 
-        usageWriter.append("java LockdownCommandLine (generate | addkey) [options...] arguments...");
+        usageWriter.append("java LockdownCommandLine (generate | addkey | list) [options...] arguments...");
         usageWriter.append('\n');
         usageWriter.append('\n');
 
@@ -99,6 +101,7 @@ public class LockdownCommandLine {
         Map<String, Object> subCommands = new HashMap<>();
         subCommands.put("generate", new KeyGeneratorCommand());
         subCommands.put("addkey", new AddCredentialsCommand());
+        subCommands.put("list", new AddCredentialsCommand());
 
         for (Entry<String, Object> subCommand : subCommands.entrySet()) {
             usageWriter.append(subCommand.getKey());

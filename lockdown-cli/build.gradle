@@ -4,19 +4,28 @@ plugins {
 
 description = 'Command line interface for managing encrypted credential files'
 
+//Need to exclude the real logger from test runs, so use a special configuration to side-step its inclusion in test runs
+configurations {
+	capsuleRuntime{
+		extendsFrom runtime
+	}
+}
+
 //Dependency versions managed in $rootDir/dependencies.lock
 dependencies {
     compile project(':lockdown-core')
     compile group: 'args4j', name: 'args4j'
     compile group: 'org.slf4j', name: 'slf4j-api'
     
-    runtime group: 'org.slf4j', name: 'slf4j-simple'
+    capsuleRuntime group: 'org.slf4j', name: 'slf4j-simple'
     
     testCompile group: 'org.testng', name: 'testng'
+    testCompile group: 'uk.org.lidalia', name: 'slf4j-test'
 }
 
 task distCapsule(type: FatCapsule) {
     applicationClass 'org.starchartlabs.lockdown.cli.LockdownCommandLine'
+    embedConfiguration configurations.capsuleRuntime
 }
 
 artifacts {
