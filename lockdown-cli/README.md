@@ -36,3 +36,10 @@ The generate command creates a public/private key pair for encryption and decryp
     - Specifies the public key to use to encrypt credentials. Required
 
 **Note:** When adding keys, the password will not be displayed as it is typed for security reasons (similar to behavior when logging in via ssh)
+
+### list
+
+`list <credential store>`
+
+- `<credential store>`
+    - Specifies the credential store to list available lookup keys in. Required

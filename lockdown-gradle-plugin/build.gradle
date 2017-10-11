@@ -7,4 +7,6 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     compile project(':lockdown-core')
+    
+    testCompile group: 'org.testng', name: 'testng'
 }

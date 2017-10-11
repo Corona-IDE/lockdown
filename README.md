@@ -19,7 +19,7 @@ Lockdown is intended for those cases - where the need for clear-text credentials
 
 ## Contributing
 
-Information for how to contribute to Lockdown can be found in [the contribution guidelines](CONTRIBUTING.md)
+Information for how to contribute to Lockdown can be found in [the contribution guidelines](./doc/CONTRIBUTING.md)
 
 ## Legal
 
@@ -33,7 +33,7 @@ If you discover a security vulnerability, contact the development team by e-mail
 
 ## Migrating Between Major Versions
 
-Details for migrating across major versions of Lockdown may be found in [MIGRATION.md](/.MIGRATION.md)
+Details for migrating across major versions of Lockdown may be found in [MIGRATION.md](./doc/MIGRATION.md)
 
 ## Projects
 
@@ -70,4 +70,4 @@ Using public/private keys, there are two main things to keep in mind. Public key
 
 ## Collaborators
 
-Information for collaborators, including the release process, can be found in the [collaborator documention](./COLLABORATORS.md)
+Information for collaborators, including the release process, can be found in the [collaborator documention](./doc/COLLABORATORS.md)
