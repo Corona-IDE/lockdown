@@ -9,9 +9,11 @@ jdk:
 
 before_install:
   - pip install --user codecov
+  - sudo apt-get -qq update
+  - sudo apt-get install haveged
   
 script:
-  - ./gradlew check -PskipKeyGenerationTests
+  - ./gradlew check
   - ./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN
 
 after_success:
