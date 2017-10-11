@@ -15,7 +15,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath group: 'org.starchart.lockdown', name: 'lockdown-gradle-plugin', version: '1.0.0'
+        classpath group: 'org.starchart.lockdown', name: 'lockdown-gradle-plugin', version: '2.0.0'
     }
 }
 

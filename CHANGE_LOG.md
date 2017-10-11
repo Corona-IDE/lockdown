@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0]
 - Remove com.coronaide.* classes/APIs which were deprecated in 1.0.0
+- Add ability to list lookup keys to core, CLI, and Gradle tasks
 
 ## [1.0.0]
 - Change group ID to org.starchartlabs.lockdown
