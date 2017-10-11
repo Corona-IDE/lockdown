@@ -17,6 +17,10 @@ We welcome any contributions! If you wish to contribute:
 
 Currently, Eclipse is the supported IDE for development of Lockdown. It is recommended to create an isolated workspace for StarChart Labs projects. You should also import the standard StarChart Labs formatting and save settings from the [eclipse-configuration repository](https://github.com/StarChart-Labs/eclipse-configuration)
 
+### Note on CLI Test Performance
+
+The CLI tests run against operations requiring entropy - Linux users may note a long wait for /dev/random to generate the required amount. One workaround used by Lockdown developers is to install [haveged](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged)
+
 ## General Standards
 
 In general, pull requests should:
