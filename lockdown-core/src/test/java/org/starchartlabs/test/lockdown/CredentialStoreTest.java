@@ -2,7 +2,7 @@
  * Copyright (C) 2017 The Corona-IDE@github.com Authors
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 package org.starchartlabs.test.lockdown;
 
@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.RuntimeCryptoException;
@@ -331,6 +332,45 @@ public class CredentialStoreTest {
                 (a, b) -> validateCredentials(a, b, "user1", "pass1".toCharArray()));
         store.accessCredentials("KEY2", privateKey1,
                 (a, b) -> validateCredentials(a, b, "user2", "pass2".toCharArray()));
+    }
+
+    @Test
+    public void getLookupKeysNone() throws Exception {
+        Path targetFile = Files.createTempFile("cred", "store");
+        targetFile.toFile().deleteOnExit();
+
+        CredentialStore store = CredentialStore.loadOrCreate(targetFile);
+
+        Assert.assertNotNull(store);
+        Assert.assertTrue(targetFile.toFile().exists());
+
+        Set<String> result = store.getLookupKeys();
+
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void getLookupKeys() throws Exception {
+        Path targetFile = Files.createTempFile("cred", "store");
+        targetFile.toFile().deleteOnExit();
+
+        CredentialStore store = CredentialStore.loadOrCreate(targetFile);
+
+        Assert.assertNotNull(store);
+        Assert.assertTrue(targetFile.toFile().exists());
+
+        // Add encrypted key(s)
+        store.addOrUpdateCredentials("KEY1", "user1", "pass1".toCharArray(), publicKey1);
+        store.addOrUpdateCredentials("KEY2", "user2", "pass2".toCharArray(), publicKey1);
+
+        Set<String> result = store.getLookupKeys();
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 2);
+
+        Assert.assertTrue(result.contains("KEY1"));
+        Assert.assertTrue(result.contains("KEY2"));
     }
 
     private void validateCredentials(String actualUsername, char[] actualPassword, String expectedUsername,

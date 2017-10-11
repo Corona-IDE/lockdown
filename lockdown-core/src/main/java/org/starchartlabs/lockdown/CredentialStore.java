@@ -2,7 +2,7 @@
  * Copyright (C) 2017 The Corona-IDE@github.com Authors
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 package org.starchartlabs.lockdown;
 
@@ -18,7 +18,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import org.bouncycastle.crypto.AsymmetricBlockCipher;
 import org.bouncycastle.crypto.InvalidCipherTextException;
@@ -109,6 +111,28 @@ public class CredentialStore {
         }
 
         logger.info("Credentials added for lookup key {}", lookupKey);
+    }
+
+    /**
+     * Lists lookup keys already present/available in the credential store. Each lookup key corresponds to a a single
+     * set of credentials that may be accessed or manipulated
+     *
+     * @return A set of the unique lookup keys which each map to a single set of access credentials
+     * @throws IOException
+     *             If there is an error reading the credential store
+     * @since 2.0.0
+     */
+    public Set<String> getLookupKeys() throws IOException {
+        Properties properties = new Properties();
+
+        try (InputStream inputStream = Files.newInputStream(credentialFile, StandardOpenOption.READ)) {
+            properties.load(inputStream);
+        }
+
+        return properties.keySet().stream()
+                .map(Object::toString)
+                .collect(Collectors.toSet());
+
     }
 
     /**
