@@ -29,4 +29,4 @@ addons:
       description: "Handling for when you simply can't avoid storing basic credentials"
     notification_email: corona.ide.dev@gmail.com
     build_command: "./gradlew assemble"
-    branch_pattern: master
+    branch_pattern: add-coverity
