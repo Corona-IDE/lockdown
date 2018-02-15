@@ -1,28 +1,32 @@
 language: java
-
 env:
   global:
-    - secure: "jxIsOHh5LifqjnOHkD4l9gPl+ZLDqrFYvkbd9TBY/E4Agn30YNgv1UGcpZ3SW2X0yKT8pJcY+CXZAXEPfVzVPPPlYy5gKA8J5eCLKPZbOpppeSQYMg4IFDz7L4JKTWp9T5heIFQv8SKQS7VzgJAPR1SiAPcbjYCcFsTHdoBQ633eLrhx3sTLxD7ou8xObd8ZoxpZiBocI/drWbbWzWg02ga4oZAsA1XKkLtkA8hCQwkK1uv25pYVZja+8Db5g6rXOrV7BJvULQbNr91dqa90orCIWNn2gM68aM024mVDs6MQh8hiVfL+2vzEgkB3LINv2g51xiiEuRSOPkROEdPEJdGqGkQE9guAGfJrBwLMhP9dWnm2bt7yztJwRnWvgEokAJqI365FfxmmSq7JJFl8dJVuB70BGxFXwCCX75G0GljVVAURuP0Jlvv9NW6mkpPhafWFt7Zw9fArfK+j33EouenTs/EwrmphbnxXDe7E1KW4PiR+Ly5p2fqc6+RGY8HR+qzhlHQsikhmSC/v99AG6m9MS7Lp5rzyzPYWtupk0m40InhhBeSpUDNCjuPhPmAn8vyy9Vw0jkRiENC1CLCVjy8rlE3/1bBU9ydvrMeUDJTMsir89WyzgQTOEjUxslj7U/DZ5wWhQxmyma9YbA4dgg9BDyr6L+0Uhph6Wu2rMzo="
-
+  - secure: jxIsOHh5LifqjnOHkD4l9gPl+ZLDqrFYvkbd9TBY/E4Agn30YNgv1UGcpZ3SW2X0yKT8pJcY+CXZAXEPfVzVPPPlYy5gKA8J5eCLKPZbOpppeSQYMg4IFDz7L4JKTWp9T5heIFQv8SKQS7VzgJAPR1SiAPcbjYCcFsTHdoBQ633eLrhx3sTLxD7ou8xObd8ZoxpZiBocI/drWbbWzWg02ga4oZAsA1XKkLtkA8hCQwkK1uv25pYVZja+8Db5g6rXOrV7BJvULQbNr91dqa90orCIWNn2gM68aM024mVDs6MQh8hiVfL+2vzEgkB3LINv2g51xiiEuRSOPkROEdPEJdGqGkQE9guAGfJrBwLMhP9dWnm2bt7yztJwRnWvgEokAJqI365FfxmmSq7JJFl8dJVuB70BGxFXwCCX75G0GljVVAURuP0Jlvv9NW6mkpPhafWFt7Zw9fArfK+j33EouenTs/EwrmphbnxXDe7E1KW4PiR+Ly5p2fqc6+RGY8HR+qzhlHQsikhmSC/v99AG6m9MS7Lp5rzyzPYWtupk0m40InhhBeSpUDNCjuPhPmAn8vyy9Vw0jkRiENC1CLCVjy8rlE3/1bBU9ydvrMeUDJTMsir89WyzgQTOEjUxslj7U/DZ5wWhQxmyma9YbA4dgg9BDyr6L+0Uhph6Wu2rMzo=
+  matrix:
+    secure: sh0nl4fsMhMhnGGy+k01cz3rJlUsniETTW5hjDDFZwPX7LORsXgM7lUHe8ImQYURXIZTTRpW0eOZHKhqxXqNCJsOmPg3IDKIRHU1j6o2Ypmqyh6N6BN/0zKot4j3raKgJKdruNQDexfXJuM8Zur7cU7+tNi++XdYD+yR0WBESyWFhPFr7tA1FQg7dSnIgXwf+3PGWffeS1/C4EuPGMaOjJi1V/yGC/6IyhnRCz7sfcvo1THN/Zxz1MZJRVPu6CCfAd4DGFAYhmCJDSq8uf3O6migppCKS3ATV9TIFDcbftbvpXIkv2BYJjIkCba3kO2CM4rQ+SP7v4+9DSAx6YUddoens889y6fMKdgMec2tpKWTzKT73+53wxTBiQ9S+BShZZuXiarvQGgzFQ0wNnkMWqbQoTTsCPsQvu+TrGjAOCGOAzLrWUGLIHxDkZwlmqYTmLa9E4EOYLud3RU1abFo1u7GNdgsVdUrRlhMWG0Ru5ma4tmQne2ia+O0GQsdqhoVWGGWvHff7Y9W6kDhrmmwoFHRulhpIhRJ+XGoBdY8m1hRbB3GT4fsG5swRPC/dIeWVbskZ3yFOeC5rqDNIOvQbi8b9XaZPsXrQbv2ltYHdEIF47txt1LZORrtchG8q+HbI8KLsWnUe0HIL4PLTfD5dgxvYWzxZsOTTLZILruM0IQ=
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 before_install:
-  - pip install --user codecov
-  - sudo apt-get -qq update
-  - sudo apt-get install -y haveged
-  
+- pip install --user codecov
+- sudo apt-get -qq update
+- sudo apt-get install -y haveged
 script:
-  - ./gradlew check
-  - ./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN
-
+- "./gradlew check"
+- "./gradlew sonarqube -PsonarLogin=$SONAR_TOKEN"
 after_success:
-  - codecov
-  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
-  
+- codecov
+- bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
 notifications:
   email:
     recipients:
-      - corona.ide.dev@gmail.com
+    - corona.ide.dev@gmail.com
     on_success: change
     on_failure: always
+addons:
+  coverity_scan:
+    project:
+      name: "StarChart-Labs/lockdown"
+      description: "Handling for when you simply can't avoid storing basic credentials"
+    notification_email: corona.ide.dev@gmail.com
+    build_command: "./gradlew assemble"
+    branch_pattern: master
