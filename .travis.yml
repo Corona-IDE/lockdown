@@ -16,17 +16,10 @@ script:
 after_success:
 - codecov
 - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
+- wget https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_SCAN_TOKEN&project=StarChart-Labs%2Flockdown" -O coverity_tool.tgz
 notifications:
   email:
     recipients:
     - corona.ide.dev@gmail.com
     on_success: change
     on_failure: always
-addons:
-  coverity_scan:
-    project:
-      name: "StarChart-Labs/lockdown"
-      description: "Handling for when you simply can't avoid storing basic credentials"
-    notification_email: corona.ide.dev@gmail.com
-    build_command: "./gradlew assemble"
-    branch_pattern: add-coverity
