@@ -11,6 +11,8 @@
     * [lockdown-gradle-plugin](#lockdown-gradle-plugin)
 * [Handling Key Files](#handling-key-files)
 
+NOTE: Lockdown has been archived - we have changed basic assumptions/patterns around handling credentials. If you wish to see this project continued, please contact us at `contributing@starchartlabs.org`
+
 When you simply can't avoid storing basic credentials
 
 Usually, when storing credentials, one-way encryption is used to protect sensitive information. However, some systems require access to a set of clear-text credentials for authentication.
